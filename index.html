@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cordeiro — Estudo editorial</title>
+<meta name="robots" content="noindex">
+<style>
+@font-face{font-family:Druk;src:url("assets/fonts/druk-condensed.woff2") format("woff2");font-weight:900;font-display:swap}
+@font-face{font-family:Portrait;src:url("assets/fonts/portrait-regular.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:Portrait;src:url("assets/fonts/portrait-italic.woff2") format("woff2");font-style:italic;font-display:swap}
+:root{--paper:#eeece6;--ink:#242220;--rule:#a7a39b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Portrait,Georgia,serif}
+.sheet{max-width:1440px;margin:auto;padding:28px clamp(22px,5vw,80px) 32px}
+header{display:grid;grid-template-columns:1fr 1fr 1fr;align-items:baseline;border-bottom:1px solid var(--rule);padding-bottom:7px;font-size:14px}
+header a{color:inherit;text-decoration:none}header a:nth-child(2){text-align:center}header span{text-align:right}
+h1{font-family:Druk,Impact,'Arial Narrow',sans-serif;font-weight:900;font-size:clamp(76px,15vw,218px);line-height:.88;letter-spacing:-.025em;margin:0;text-transform:uppercase}
+.heading{min-height:clamp(280px,46vw,610px);display:grid;grid-template-columns:repeat(12,minmax(0,1fr));align-content:center;padding:50px 0 64px}
+.heading h1{grid-column:3/13}
+.heading small{grid-column:3/13;font-size:17px;margin-top:22px;font-style:italic}
+.meta{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));border-top:1px solid var(--rule);padding:9px 0 32px;font-size:13px}
+.meta span:nth-child(1){grid-column:1/3}.meta span:nth-child(2){grid-column:3/8}.meta span:nth-child(3){grid-column:11/13;text-align:right}
+article{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:0 20px;align-items:start;padding:12px 0 90px}
+.copy{grid-column:1/6;max-width:38em;font-size:clamp(18px,1.6vw,22px);line-height:1.55}
+.copy p{margin:0 0 1em}.copy p+p{text-indent:1.3em}
+blockquote{grid-column:7/13;margin:80px 0 0;font-size:clamp(34px,4.6vw,73px);line-height:1.04;letter-spacing:-.035em}
+blockquote p{margin:0}blockquote em{font-style:normal;background:var(--ink);color:var(--paper);box-decoration-break:clone;-webkit-box-decoration-break:clone;padding:0 .07em}
+footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;padding-top:9px;font-size:13px}
+@media(max-width:720px){.sheet{padding-top:18px}header{font-size:12px}.heading{min-height:300px;padding:60px 0}.heading h1,.heading small{grid-column:1/13}h1{font-size:clamp(70px,17vw,125px)}.meta{font-size:12px}.meta span:nth-child(1){grid-column:1/4}.meta span:nth-child(2){grid-column:4/10}.meta span:nth-child(3){grid-column:10/13}article{display:block;padding-bottom:56px}.copy{max-width:38em}blockquote{margin:64px 0 12px;font-size:clamp(36px,8vw,58px)}}
+</style>
+</head>
+<body><div class="sheet">
+<header><a href="./">Cordeiro</a><a href="#texto">Leitura</a><span>Estudo nº 01</span></header>
+<main><section class="heading" aria-labelledby="titulo"><h1 id="titulo">O outro<br>espelho.</h1><small>Identidade e reconhecimento</small></section>
+<div class="meta"><span>01 / Ensaio</span><span>Texto de demonstração</span><span>Nov. 2026</span></div>
+<article id="texto"><div class="copy"><p>Há uma diferença entre aquilo que vemos quando estamos sozinhos e aquilo que reconhecemos de nós mesmos na presença de outra pessoa. A identidade não se forma apenas no silêncio da consciência: ela também depende das relações que estabelecemos.</p><p>Em <i>O espelho</i>, Machado de Assis imagina um homem cuja imagem parece depender do reconhecimento social. A farda que veste não é simplesmente um objeto; ela representa uma posição que os outros lhe atribuem.</p><p>Essa relação entre a imagem de si e o olhar alheio permite pensar a identidade como algo instável, sujeito às circunstâncias em que vivemos.</p></div><blockquote><p>Até que ponto conseguimos nos reconhecer <em>sem o olhar do outro?</em></p></blockquote></article></main>
+<footer><span>Cordeiro</span><span>01</span></footer>
+</div></body></html>
