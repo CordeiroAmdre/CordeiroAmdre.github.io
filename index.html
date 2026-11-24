@@ -29,6 +29,36 @@
 footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px;padding-top:8px;font-size:12px}
 @media(max-width:600px){.page{width:calc(100% - 36px);padding-top:16px}.masthead{font-size:12px;grid-template-columns:1fr auto}.masthead>span{display:none}.cover{min-height:240px;padding:55px 0}.cover h1{font-size:clamp(53px,14vw,84px)}.imprint{grid-template-columns:1fr 1fr 1fr;gap:10px;padding-bottom:22px;font-size:11px}.imprint p:last-child{grid-column:3}.plate{height:clamp(220px,72vw,360px)}.feature figcaption{grid-template-columns:1fr auto;gap:8px}.feature figcaption strong{grid-column:1/-1;grid-row:2}.archive{display:block;margin:60px 0 75px}.archive h2{margin-bottom:15px}.entry{grid-template-columns:26px 1fr auto;gap:8px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Motion follows the sequence of opening and reading a printed cover. */
+:root{--ease-editorial:cubic-bezier(.22,.61,.36,1)}
+.masthead,.imprint{position:relative}
+@media(prefers-reduced-motion:no-preference){
+  .motion .masthead,.motion .imprint{border-color:transparent}
+  .motion .masthead::after,.motion .imprint::before{content:"";position:absolute;left:0;right:0;height:1px;background:var(--rule);transform:scaleX(0);transform-origin:left;animation:ink-rule 850ms var(--ease-editorial) forwards}
+  .motion .masthead::after{bottom:0}
+  .motion .imprint::before{top:0;animation-delay:420ms}
+  .motion .masthead>*{animation:ink-in 650ms var(--ease-editorial) both}
+  .motion .cover h1{animation:type-reveal 1100ms var(--ease-editorial) 100ms both}
+  .motion .imprint p{animation:ink-in 750ms var(--ease-editorial) both;animation-delay:calc(450ms + var(--order,0)*85ms)}
+  .motion .plate{clip-path:inset(0 0 100% 0);transition:clip-path 1150ms var(--ease-editorial)}
+  .motion .plate svg{transform:scale(1.035);transition:transform 1400ms var(--ease-editorial)}
+  .motion .feature.is-visible .plate,.motion .feature:focus-within .plate{clip-path:inset(0)}
+  .motion .feature.is-visible .plate svg,.motion .feature:focus-within .plate svg{transform:scale(1)}
+  .motion .feature figcaption,.motion .archive h2,.motion .entry,.motion footer{opacity:0;transform:translateY(9px);transition:opacity 650ms var(--ease-editorial),transform 750ms var(--ease-editorial)}
+  .motion .feature.is-visible figcaption,.motion .feature:focus-within figcaption{opacity:1;transform:none;transition-delay:240ms}
+  .motion .archive.is-visible h2,.motion .archive:focus-within h2,.motion .entry.is-visible,.motion .entry:focus-within,.motion footer.is-visible{opacity:1;transform:none}
+  @keyframes ink-rule{to{transform:scaleX(1)}}
+  @keyframes ink-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @keyframes type-reveal{from{clip-path:inset(100% -2% 0);transform:translateY(12px)}to{clip-path:inset(-12% -2% -12%);transform:none}}
+  .masthead a,.entry a{position:relative;text-decoration:none}
+  .masthead a::after,.entry a::after{content:"";position:absolute;left:0;right:0;bottom:-.16em;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform 400ms var(--ease-editorial)}
+  .masthead a:hover::after,.entry a:hover::after,.masthead a:focus-visible::after,.entry a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+}
+@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){
+  .motion .feature.is-visible a:hover .plate svg{transform:scale(1.025)}
+}
+
 </style>
 </head>
 <body><main class="page">
@@ -42,4 +72,31 @@ footer{border-top:1px solid var(--rule);display:flex;justify-content:space-betwe
 </figure>
 <section class="archive" id="arquivo"><h2>Índice</h2><div class="entries"><div class="entry"><span>01</span><a href="artigos/estudo-01.html">O outro espelho.</a><time datetime="2026-11">Nov. 2026</time></div></div></section>
 <footer><span>André Cordeiro</span><span>2026</span></footer>
-</main></body></html>
+</main>
+<script>
+(() => {
+  const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (preference.matches || !('IntersectionObserver' in window)) return;
+  const root = document.documentElement;
+  const items = document.querySelectorAll('.feature, .archive, .entry, footer');
+  document.querySelectorAll('.imprint p').forEach((item, i) => item.style.setProperty('--order', i));
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(({target, isIntersecting}) => {
+      if (!isIntersecting) return;
+      target.classList.add('is-visible');
+      observer.unobserve(target);
+    });
+  }, {threshold: 0.08});
+  items.forEach(item => observer.observe(item));
+  root.classList.add('motion');
+  const revealAll = () => {
+    observer.disconnect();
+    items.forEach(item => item.classList.add('is-visible'));
+    root.classList.remove('motion');
+  };
+  if (preference.addEventListener) preference.addEventListener('change', event => {if (event.matches) revealAll();});
+  window.addEventListener('beforeprint', revealAll, {once:true});
+  window.addEventListener('pageshow', event => {if (event.persisted) revealAll();});
+})();
+</script>
+</body></html>
