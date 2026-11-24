@@ -100,6 +100,18 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
 .cover-pattern{font-size:clamp(65px,20vw,100px);opacity:.055}
 .orbit-tile{width:clamp(22px,8vw,35px)}
 }
+
+/* Feathered typographic field and shared depth plane. */
+.cover-pattern{
+ mask-image:radial-gradient(ellipse 48% 47% at 50% 50%,#000 0%,#000 24%,rgba(0,0,0,.85) 43%,rgba(0,0,0,.42) 65%,rgba(0,0,0,.09) 85%,transparent 100%);
+ -webkit-mask-image:radial-gradient(ellipse 48% 47% at 50% 50%,#000 0%,#000 24%,rgba(0,0,0,.85) 43%,rgba(0,0,0,.42) 65%,rgba(0,0,0,.09) 85%,transparent 100%);
+ opacity:.055;
+}
+.orbit{z-index:auto}
+.cover h1{z-index:2}
+.orbit-tile{will-change:transform;z-index:1}
+.motion-toggle{z-index:5}
+@media(max-width:600px){.cover-pattern{opacity:.05}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
 </head>
@@ -142,12 +154,16 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
  let paused=false, elapsed=0, last=0, frame=0;
  const draw=()=>{
  const w=cover.clientWidth,h=cover.clientHeight,s=tiles[0].offsetWidth;
- const rx=Math.max(0,Math.min(w/2-s*.8,Math.max(w*.31,title.offsetWidth*.6+s)));
- const ry=Math.max(0,Math.min(h/2-s*1.1,Math.max(h*.28,title.offsetHeight*.65+s)));
+ const rx=Math.max(0,Math.min(w/2-s*.95,title.offsetWidth*.61+s*.4));
+ const ry=Math.max(0,Math.min(h*.28,title.offsetHeight*.40+s*.16));
  tiles.forEach((tile,i)=>{
  const a=elapsed*.00022+i*Math.PI*2/tiles.length-.6;
- const x=Math.cos(a)*rx,y=Math.sin(a)*ry;
- tile.style.transform='translate(-50%,-50%) translate('+x+'px,'+y+'px) rotate('+(a*180/Math.PI+ i*23)+'deg)';
+ const depth=Math.sin(a), side=Math.cos(a);
+ const x=side*rx, y=depth*ry+side*rx*.10;
+ const scale=.84+(depth+1)*.16;
+ tile.style.zIndex=depth>=0?'3':'1';
+ tile.style.transform='translate(-50%,-50%) translate('+x+'px,'+y+'px) rotate('+(a*180/Math.PI+i*23)+'deg) scale('+scale+')';
+
  });
  };
  const tick=(now)=>{frame=0;if(paused||pref.matches||document.hidden){last=0;return;}if(last)elapsed+=Math.min(50,now-last);last=now;draw();frame=requestAnimationFrame(tick);};
