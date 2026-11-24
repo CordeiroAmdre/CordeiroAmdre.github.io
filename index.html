@@ -99,11 +99,22 @@ body{position:relative;isolation:isolate}
 .motion .organic-margin--right path{animation-delay:460ms}
 @keyframes draw-margin{to{stroke-dashoffset:0}}
 }
+
+/* Anchor both loops to the actual viewport corners. */
+.organic-margin--left{top:0;left:0;transform:rotate(180deg)}
+.organic-margin--right{bottom:0;right:0}
+@media(max-width:600px){
+.organic-margins{position:fixed;inset:0}
+.organic-margin{width:clamp(110px,35vw,170px)}
+.organic-margin--left{top:0;left:0}
+.organic-margin--right{bottom:0;right:0}
+.masthead{z-index:1;background:var(--paper)}
+}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
 </head>
 <body><div class="organic-margins" aria-hidden="true">
-<svg class="organic-margin organic-margin--left" viewBox="0 0 145 210" focusable="false"><path pathLength="1" d="M-30 70 C100 15 110 155 39 141 S10 45 -25 171"/></svg>
+<svg class="organic-margin organic-margin--left" viewBox="0 0 145 180" focusable="false"><path pathLength="1" d="M50 195 C-55 70 168 52 102 146 S20 91 175 54"/></svg>
 <svg class="organic-margin organic-margin--right" viewBox="0 0 145 180" focusable="false"><path pathLength="1" d="M50 195 C-55 70 168 52 102 146 S20 91 175 54"/></svg>
 </div><main class="page">
 <header class="masthead"><a href="./">André Cordeiro</a><span></span><nav><a href="publicacoes.html">Publicações</a></nav></header>
