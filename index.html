@@ -70,12 +70,22 @@ h1{font-weight:900!important}
 header, header a, header nav, header span { font-family: Portrait, Georgia, 'Times New Roman', serif; font-weight: 400; }
 .masthead > a { justify-self: start; }
 .masthead nav a { display: inline-block; }
+
+/* Asymmetric editorial signature */
+.cover h1{display:flex;flex-direction:column;align-items:flex-end;gap:.035em;width:max-content;max-width:100%}
+.cover h1 .given-name{font-size:.44em;line-height:.9;letter-spacing:-.015em;display:block}
+.cover h1 .surname{display:block;line-height:.85}
+@media(prefers-reduced-motion:no-preference){
+.motion .cover h1{animation:none}
+.motion .cover h1 .given-name{animation:type-reveal 850ms var(--ease-editorial) 100ms both}
+.motion .cover h1 .surname{animation:type-reveal 1100ms var(--ease-editorial) 240ms both}
+}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
 </head>
 <body><main class="page">
 <header class="masthead"><a href="./">André Cordeiro</a><span></span><nav><a href="publicacoes.html">Publicações</a></nav></header>
-<section class="cover" aria-label="Capa"><h1>CORDEIRO</h1></section>
+<section class="cover" aria-label="Capa"><h1 aria-label="Andre Cordeiro"><span class="given-name">ANDRE</span><span class="surname">CORDEIRO</span></h1></section>
 
 
 </main>
