@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>André Cordeiro — Publicações</title>
+<title>André Cordeiro</title>
 <meta name="description" content="Arquivo de textos de André Cordeiro.">
 <style>
 @font-face{font-family:Druk;src:url("assets/fonts/druk-condensed.woff2") format("woff2");font-weight:900;font-display:swap}
@@ -59,18 +59,18 @@ footer{border-top:1px solid var(--rule);display:flex;justify-content:space-betwe
   .motion .feature.is-visible a:hover .plate svg{transform:scale(1.025)}
 }
 
+
+.page{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
+.cover{flex:1;min-height:260px}
+.imprint{padding-bottom:24px}
+.imprint p:last-child{grid-column:6;text-align:right}
+@media(max-width:600px){.imprint p:last-child{grid-column:3}.cover{min-height:220px}}
 </style>
 </head>
 <body><main class="page">
-<header class="masthead"><a href="./">André Cordeiro</a><span>Publicações</span><nav><a href="#arquivo">Arquivo</a></nav></header>
+<header class="masthead"><a href="./">André Cordeiro</a><span></span><nav><a href="publicacoes.html">Publicações</a></nav></header>
 <section class="cover" aria-label="Capa"><h1>CORDEIRO</h1></section>
-<section class="imprint" aria-label="Informações da edição"><p>Publicação<br>independente</p><p>Brasil<br>2026</p><p>Novembro<br>Estudo de capa</p><p>01<br>Ensaio</p></section>
-<figure class="feature">
-<a href="artigos/estudo-01.html" aria-label="Ler estudo editorial O outro espelho">
-<div class="plate"><svg viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Composição gráfica abstrata: duas superfícies retangulares em contraste"><rect width="1000" height="500" fill="#292724"/><rect x="355" y="52" width="290" height="396" fill="#aaa69c"/><rect x="367" y="64" width="266" height="372" fill="#3b3935"/><path d="M367 64H633V436Z" fill="#bbb7ae"/><path d="M367 64L633 436" stroke="#d8d4ca" stroke-width="1"/><rect x="660" y="52" width="1" height="396" fill="#77736c"/></svg></div>
-<figcaption><span>01 / Ensaio</span><strong>O outro espelho.</strong><span>Estudo editorial</span></figcaption></a>
-</figure>
-<section class="archive" id="arquivo"><h2>Índice</h2><div class="entries"><div class="entry"><span>01</span><a href="artigos/estudo-01.html">O outro espelho.</a><time datetime="2026-11">Nov. 2026</time></div></div></section>
+<section class="imprint" aria-label="Informações do site"><p>André Cordeiro</p><p>Brasil</p><p>Desde 2026</p></section>
 <footer><span>André Cordeiro</span><span>2026</span></footer>
 </main>
 <script>
@@ -78,7 +78,7 @@ footer{border-top:1px solid var(--rule);display:flex;justify-content:space-betwe
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (preference.matches || !('IntersectionObserver' in window)) return;
   const root = document.documentElement;
-  const items = document.querySelectorAll('.feature, .archive, .entry, footer');
+  const items = document.querySelectorAll('footer');
   document.querySelectorAll('.imprint p').forEach((item, i) => item.style.setProperty('--order', i));
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(({target, isIntersecting}) => {
