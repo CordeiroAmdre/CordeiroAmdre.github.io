@@ -171,7 +171,7 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
  const orbitBottom=Math.hypot(ry,rx*.10)+s*.58;
  cover.style.setProperty('--caption-offset',Math.ceil(Math.max(orbitBottom+14,title.offsetHeight/2+18))+'px');
  tiles.forEach((tile,i)=>{
- const a=elapsed*.00022+i*Math.PI*2/tiles.length-.6;
+ const a=elapsed*.00044+i*Math.PI*2/tiles.length-.6;
  const depth=Math.sin(a), side=Math.cos(a);
  const x=side*rx, y=depth*ry+side*rx*.10;
  const scale=.84+(depth+1)*.16;
@@ -197,12 +197,12 @@ const faces=encoded.map(line=>{const rings=line.split('|').map(r=>r.split(' ').m
 const palettes=[['#452a38','#d28f88','#f8dcca'],['#34493d','#b8a77e','#f0e1c8'],['#33465a','#a7bac7','#e8e2d4'],['#85534a','#d5a281','#f6dfc6'],['#66516f','#c0a0ba','#f2dce5'],['#4b4940','#c0b391','#f5e7ca']];
 const tiles=[...document.querySelectorAll('.orbit-tile')],pref=matchMedia('(prefers-reduced-motion: reduce)');
 const orders=[[6,0,8,1,10,19,22,13,4],[17,8,16,14,5,20,15,9,3,12,18],[2,17,21,3,11,24,19],[10,7,16,11,5,14,23],[20,15,9,3,12,18,21],[22,13,4,6,0,8,2,24]];
-const models=tiles.map((tile,i)=>{const colors=palettes[i%palettes.length];tile.querySelectorAll('svg path').forEach(p=>{const f=p.getAttribute('fill');if(f==='#452a38')p.setAttribute('fill',colors[0]);if(f==='#d28f88')p.setAttribute('fill',colors[1]);if(f==='#f8dcca')p.setAttribute('fill',colors[2]);});return{eyes:[...tile.querySelectorAll('.mascot-eye')],mouth:tile.querySelector('.mascot-mouth'),order:orders[i%orders.length],period:3.2+i*.37,phase:i*1.73};});
+const models=tiles.map((tile,i)=>{const colors=palettes[i%palettes.length];tile.querySelectorAll('svg path').forEach(p=>{const f=p.getAttribute('fill');if(f==='#452a38')p.setAttribute('fill',colors[0]);if(f==='#d28f88')p.setAttribute('fill',colors[1]);if(f==='#f8dcca')p.setAttribute('fill',colors[2]);});return{eyes:[...tile.querySelectorAll('.mascot-eye')],mouth:tile.querySelector('.mascot-mouth'),order:orders[i%orders.length],period:1.6+i*.185,phase:i*1.73};});
 const mix=(a,b,t)=>a+(b-a)*t;
 const point=p=>p.map(x=>x.toFixed(2)).join(' ');
 function mouthPath(rings,spec){const a=center(rings[0]),b=center(rings[1]),theta=Math.atan2(b[1]-a[1],b[0]-a[0]);const height=Math.max(...rings.map(r=>(Math.max(...r.map(p=>p[1]))-Math.min(...r.map(p=>p[1])))/2));const drop=height+spec[2],x=(a[0]+b[0])/2-Math.sin(theta)*drop,y=(a[1]+b[1])/2+Math.cos(theta)*drop,angle=theta+spec[3]*Math.PI/180;const at=(u,v)=>[x+u*Math.cos(angle)-v*Math.sin(angle),y+u*Math.sin(angle)+v*Math.cos(angle)];return 'M'+point(at(-spec[0],0))+' Q'+point(at(0,spec[1]))+' '+point(at(spec[0],0));}
 let frame=0,last=0,elapsed=0;
-function draw(time){models.forEach(m=>{const t=pref.matches?0:time+m.phase,step=Math.floor(t/m.period),u=Math.min(1,(t%m.period)/.6),e=u*u*(3-2*u),i=m.order[(step+m.order.length-1)%m.order.length],j=m.order[step%m.order.length];const rings=faces[j].map((r,k)=>r.map((p,l)=>p.map((v,n)=>mix(faces[i][k][l][n],v,e))));const spec=specs[j].map((v,k)=>mix(specs[i][k],v,e));const blink=pref.matches?1:Math.min(1,Math.max(.06,Math.abs((t%5.3)-.15)/.15));rings.forEach((ring,k)=>{const cy=center(ring)[1];m.eyes[k].setAttribute('d','M'+ring.map(p=>point([p[0],cy+(p[1]-cy)*blink])).join('L')+'Z')});m.mouth.setAttribute('d',mouthPath(rings,spec));});}
+function draw(time){models.forEach(m=>{const t=pref.matches?0:time+m.phase,step=Math.floor(t/m.period),u=Math.min(1,(t%m.period)/.35),e=u*u*(3-2*u),i=m.order[(step+m.order.length-1)%m.order.length],j=m.order[step%m.order.length];const rings=faces[j].map((r,k)=>r.map((p,l)=>p.map((v,n)=>mix(faces[i][k][l][n],v,e))));const spec=specs[j].map((v,k)=>mix(specs[i][k],v,e));const blink=pref.matches?1:Math.min(1,Math.max(.06,Math.abs((t%5.3)-.15)/.15));rings.forEach((ring,k)=>{const cy=center(ring)[1];m.eyes[k].setAttribute('d','M'+ring.map(p=>point([p[0],cy+(p[1]-cy)*blink])).join('L')+'Z')});m.mouth.setAttribute('d',mouthPath(rings,spec));});}
 function tick(now){if(last)elapsed+=Math.min(now-last,50)/1000;last=now;draw(elapsed);frame=requestAnimationFrame(tick);}
 function sync(){cancelAnimationFrame(frame);last=0;draw(elapsed);if(!pref.matches&&!document.hidden)frame=requestAnimationFrame(tick)}
 pref.addEventListener?.('change',sync);document.addEventListener('visibilitychange',sync);sync();
