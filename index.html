@@ -6,322 +6,305 @@
 <title>Flock</title>
 <meta name="description" content="Flock — serviços de automação administrativa com inteligência artificial, sob medida para sua empresa.">
 <style>
-@font-face{font-family:Druk;src:url("assets/fonts/druk-condensed.woff2") format("woff2");font-weight:900;font-display:swap}
-@font-face{font-family:Portrait;src:url("assets/fonts/portrait-regular.woff2") format("woff2");font-weight:400;font-display:swap}
-@font-face{font-family:Portrait;src:url("assets/fonts/portrait-italic.woff2") format("woff2");font-style:italic;font-display:swap}
-:root{--paper:#eeece6;--ink:#242220;--rule:#a39f96}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Portrait,Georgia,serif}a{color:inherit;text-decoration:none}a:hover{text-decoration:underline;text-underline-offset:.2em}a:focus-visible{outline:2px solid currentColor;outline-offset:5px}
-.page{width:min(100% - 64px,1040px);margin:0 auto;padding:24px 0 40px}
-.masthead{border-bottom:1px solid var(--rule);display:grid;grid-template-columns:1fr 1fr 1fr;align-items:baseline;padding-bottom:7px;font-size:13px}
-.masthead>span{text-align:center}.masthead nav{text-align:right}
-.cover{display:grid;place-items:center;min-height:clamp(270px,39vw,490px);padding:55px 0 64px}
-.cover h1{font-family:'Barlow Condensed',Impact,'Arial Narrow',sans-serif;font-weight:900;font-size:clamp(72px,14vw,200px);line-height:.85;letter-spacing:-.025em;margin:0;text-align:center}
-.imprint{border-top:1px solid var(--rule);display:grid;grid-template-columns:repeat(6,1fr);gap:16px;padding:8px 0 36px;font-size:12px;line-height:1.3}
-.imprint p{margin:0}.imprint p:last-child{grid-column:5/7}
-.feature{margin:0;display:block;border-bottom:1px solid var(--rule);padding-bottom:18px}
-.plate{height:clamp(240px,46vw,475px);background:#292724;display:grid;place-items:center;overflow:hidden;color:#e8e5de}
-.plate svg{width:100%;height:100%;display:block}
-.feature figcaption{display:grid;grid-template-columns:1fr 3fr 1fr;gap:16px;align-items:baseline;padding-top:12px;font-size:12px}
-.feature strong{font-size:clamp(24px,4vw,44px);font-weight:400;letter-spacing:-.025em;line-height:1.05}.feature figcaption span:last-child{text-align:right}
-.archive{margin:95px 0 100px;display:grid;grid-template-columns:1fr 4fr;gap:24px}
-.archive h2{font-size:15px;font-weight:400;margin:0}
-.entries{border-top:1px solid var(--rule)}.entry{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:baseline;padding:17px 0;border-bottom:1px solid var(--rule)}.entry span,.entry time{font-size:12px}.entry a{font-size:clamp(20px,3vw,30px);line-height:1.1}
-footer{border-top:1px solid var(--rule);display:flex;justify-content:space-between;gap:16px;padding-top:8px;font-size:12px}
-@media(max-width:600px){.page{width:calc(100% - 36px);padding-top:16px}.masthead{font-size:12px;grid-template-columns:1fr auto}.masthead>span{display:none}.cover{min-height:240px;padding:55px 0}.cover h1{font-size:clamp(65px,20vw,112px)}.imprint{grid-template-columns:1fr 1fr 1fr;gap:10px;padding-bottom:22px;font-size:11px}.imprint p:last-child{grid-column:3}.plate{height:clamp(220px,72vw,360px)}.feature figcaption{grid-template-columns:1fr auto;gap:8px}.feature figcaption strong{grid-column:1/-1;grid-row:2}.archive{display:block;margin:60px 0 75px}.archive h2{margin-bottom:15px}.entry{grid-template-columns:26px 1fr auto;gap:8px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-
-/* Motion follows the sequence of opening and reading a printed cover. */
-:root{--ease-editorial:cubic-bezier(.22,.61,.36,1)}
-.masthead,.imprint{position:relative}
-@media(prefers-reduced-motion:no-preference){
-  .motion .masthead,.motion .imprint{border-color:transparent}
-  .motion .masthead::after,.motion .imprint::before{content:"";position:absolute;left:0;right:0;height:1px;background:var(--rule);transform:scaleX(0);transform-origin:left;animation:ink-rule 850ms var(--ease-editorial) forwards}
-  .motion .masthead::after{bottom:0}
-  .motion .imprint::before{top:0;animation-delay:420ms}
-  .motion .masthead>*{animation:ink-in 650ms var(--ease-editorial) both}
-  .motion .cover h1{animation:type-reveal 1100ms var(--ease-editorial) 100ms both}
-  .motion .imprint p{animation:ink-in 750ms var(--ease-editorial) both;animation-delay:calc(450ms + var(--order,0)*85ms)}
-  .motion .plate{clip-path:inset(0 0 100% 0);transition:clip-path 1150ms var(--ease-editorial)}
-  .motion .plate svg{transform:scale(1.035);transition:transform 1400ms var(--ease-editorial)}
-  .motion .feature.is-visible .plate,.motion .feature:focus-within .plate{clip-path:inset(0)}
-  .motion .feature.is-visible .plate svg,.motion .feature:focus-within .plate svg{transform:scale(1)}
-  .motion .feature figcaption,.motion .archive h2,.motion .entry,.motion footer{opacity:0;transform:translateY(9px);transition:opacity 650ms var(--ease-editorial),transform 750ms var(--ease-editorial)}
-  .motion .feature.is-visible figcaption,.motion .feature:focus-within figcaption{opacity:1;transform:none;transition-delay:240ms}
-  .motion .archive.is-visible h2,.motion .archive:focus-within h2,.motion .entry.is-visible,.motion .entry:focus-within,.motion footer.is-visible{opacity:1;transform:none}
-  @keyframes ink-rule{to{transform:scaleX(1)}}
-  @keyframes ink-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
-  @keyframes type-reveal{from{clip-path:inset(100% -2% 0);transform:translateY(12px)}to{clip-path:inset(-12% -2% -12%);transform:none}}
-  .masthead a,.entry a{position:relative;text-decoration:none}
-  .masthead a::after,.entry a::after{content:"";position:absolute;left:0;right:0;bottom:-.16em;height:1px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform 400ms var(--ease-editorial)}
-  .masthead a:hover::after,.entry a:hover::after,.masthead a:focus-visible::after,.entry a:focus-visible::after{transform:scaleX(1);transform-origin:left}
+/* Hallmark · shape: Portfolio Index · genre: editorial · hero: original centered cover
+ * Layout adapted from Studio. Palette and typography restored from the original Flock landing. */
+:root {
+  --paper: #eeece6;
+  --proof-paper: #e6e3db;
+  --proof-paper-deep: #dce4d9;
+  --ink: #242220;
+  --muted: #625e56;
+  --rule: #a39f96;
+  --contact-muted: #d5d0c6;
+  --mascot-plum: #452a38;
+  --mascot-green: #34493d;
+  --mascot-blue: #33465a;
+  --mascot-clay: #85534a;
+  --approved: #435b45;
+  --font-display: Georgia, serif;
+  --font-body: Arial, sans-serif;
+  --font-logo: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
+  --page-width: 1200px;
+  --gutter: clamp(16px, 4vw, 48px);
+  --column-gap: 32px;
+  --section-space: clamp(48px, 7vw, 96px);
 }
-@media(prefers-reduced-motion:no-preference) and (hover:hover) and (pointer:fine){
-  .motion .feature.is-visible a:hover .plate svg{transform:scale(1.025)}
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-x: clip; scroll-padding-top: 24px; scroll-behavior: smooth; }
+body { overflow-x: clip; margin: 0; background: var(--paper); color: var(--ink); font: 400 1rem/1.55 var(--font-body); }
+a { color: inherit; text-underline-offset: .22em; }
+a:hover { text-decoration-color: var(--ink); }
+button { font: inherit; }
+button:disabled { cursor: not-allowed; opacity: .6; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+h1, h2, h3, p { margin: 0; }
+h1, h2, h3 { min-width: 0; overflow-wrap: break-word; text-wrap: balance; }
+h2 { font: 400 clamp(36px, 5vw, 66px)/.99 var(--font-display); letter-spacing: -.025em; }
+h3 { font: 400 1.375rem/1.18 var(--font-display); }
+.lead { font-family: var(--font-display); max-width: 52ch; color: var(--muted); font-size: 1.0625rem; }
+.ui-icon { width: 20px; height: 20px; flex: none; }
+.page { width: min(calc(100% - 2 * var(--gutter)), var(--page-width)); margin-inline: auto; }
+.masthead { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 72px; border-bottom: 1px solid var(--rule); }
+.brand-mark { font: 900 1.875rem/1 var(--font-logo); text-decoration: none; }
+.masthead nav { font-family: var(--font-display); display: flex; flex-wrap: wrap; align-items: center; gap: 8px clamp(12px, 3vw, 32px); font-size: .9375rem; }
+.masthead nav a { display: inline-flex; min-height: 44px; align-items: center; text-decoration: none; }
+.masthead nav a:hover { text-decoration: underline; }
+.masthead nav a:last-child { padding-inline: 12px; text-decoration: underline; }
+.hero {
+  width: min(100%, calc(100vw - 64px), 1040px);
+  margin-inline: auto;
+  --ease-editorial: cubic-bezier(.22,.61,.36,1);
 }
-
-
-.page{min-height:100vh;min-height:100svh;display:flex;flex-direction:column}
-.cover{flex:1;min-height:260px}
-.imprint{padding-bottom:24px}
-.imprint p:last-child{grid-column:6;text-align:right}
-@media(max-width:600px){.imprint p:last-child{grid-column:3}.cover{min-height:220px}}
-body{font-weight:400}
-h1{font-weight:900!important}
-header, header a, header nav, header span { font-family: Portrait, Georgia, 'Times New Roman', serif; font-weight: 400; }
-.masthead > a { justify-self: start; }
-.masthead nav a { display: inline-block; }
-
-
-/* Editorial kinetic cover */
-.cover{position:relative;isolation:isolate;overflow:hidden;min-height:clamp(320px,45vw,520px)}
-.cover-pattern{position:absolute;inset:0;z-index:-2;overflow:hidden;display:flex;flex-direction:column;justify-content:center;gap:.12em;opacity:.065;pointer-events:none;font-family:'Barlow Condensed',Impact,sans-serif;font-weight:900;font-size:clamp(70px,13vw,180px);line-height:.88;letter-spacing:-.025em;mask-image:radial-gradient(ellipse at center,transparent 12%,#000 65%);-webkit-mask-image:radial-gradient(ellipse at center,transparent 12%,#000 65%)}
-.pattern-row{display:flex;width:max-content;white-space:nowrap;gap:.24em;transform:translateX(-12%)}
-.pattern-row:nth-child(even){transform:translateX(-32%)}
-.cover h1{position:relative;z-index:2;white-space:nowrap}
-.cover h1 .letter{display:inline-block;transform-origin:50% 90%}
-.orbit{position:absolute;inset:0;pointer-events:none;z-index:1}
-.orbit-tile{position:absolute;left:50%;top:50%;width:clamp(25px,4.6vw,58px);aspect-ratio:1;transform:translate(-50%,-50%);background:#242220}
-.orbit-tile:nth-child(2n){background:#8e8b80}
-.orbit-tile:nth-child(3n){background:#bdb9ad}
-@media(prefers-reduced-motion:no-preference){
-.motion .cover h1{animation:none}
-.motion .cover h1 .letter{animation:letter-arrival 900ms var(--ease-editorial) both;animation-delay:calc(120ms + var(--i)*65ms)}
-.motion .pattern-row{animation:pattern-drift 44s linear infinite alternate}
-.motion .pattern-row:nth-child(even){animation-direction:alternate-reverse;animation-duration:53s}
-.motion-paused .pattern-row,.motion-paused .letter{animation-play-state:paused!important}
-@keyframes letter-arrival{from{opacity:0;transform:translateY(.42em) rotate(-7deg) scaleY(.78)}to{opacity:1;transform:none}}
-@keyframes pattern-drift{from{transform:translateX(-8%)}to{transform:translateX(-32%)}}
+.cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(390px, 45vw, 510px);
+  padding: 55px 0 64px;
+  overflow: hidden;
+  isolation: isolate;
 }
-@media(max-width:600px){
-.cover{min-height:340px}
-.cover-pattern{font-size:clamp(65px,20vw,100px);opacity:.055}
-.orbit-tile{width:clamp(22px,8vw,35px)}
+.cover-pattern {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .12em;
+  opacity: .055;
+  pointer-events: none;
+  font: 900 clamp(70px, 13vw, 180px)/.88 var(--font-logo);
+  letter-spacing: -.025em;
+  mask-image: radial-gradient(ellipse 48% 47% at center, var(--ink) 24%, color-mix(in srgb, var(--ink) 85%, transparent) 43%, color-mix(in srgb, var(--ink) 42%, transparent) 65%, color-mix(in srgb, var(--ink) 9%, transparent) 85%, transparent 100%);
 }
-
-/* Feathered typographic field and shared depth plane. */
-.cover-pattern{
- mask-image:radial-gradient(ellipse 48% 47% at 50% 50%,#000 0%,#000 24%,rgba(0,0,0,.85) 43%,rgba(0,0,0,.42) 65%,rgba(0,0,0,.09) 85%,transparent 100%);
- -webkit-mask-image:radial-gradient(ellipse 48% 47% at 50% 50%,#000 0%,#000 24%,rgba(0,0,0,.85) 43%,rgba(0,0,0,.42) 65%,rgba(0,0,0,.09) 85%,transparent 100%);
- opacity:.055;
+.pattern-row { display: flex; width: max-content; white-space: nowrap; gap: .24em; transform: translateX(-12%); }
+.pattern-row:nth-child(even) { transform: translateX(-32%); }
+.cover h1 {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  text-align: center;
+  white-space: nowrap;
+  font: 900 clamp(72px, 14vw, 200px)/.85 var(--font-logo);
+  letter-spacing: -.025em;
 }
-.orbit{z-index:auto}
-.cover h1{z-index:2}
-.orbit-tile{will-change:transform;z-index:1}
-@media(max-width:600px){.cover-pattern{opacity:.05}}
-
-.cover h1{align-self:center}
-.cover-caption{position:absolute;z-index:4;left:0;right:0;top:calc(50% + clamp(48px,8vw,104px));text-align:center;font-family:Portrait,Georgia,serif;font-size:clamp(16px,2.2vw,27px);font-weight:400;margin:0;line-height:1.4;pointer-events:none}
-.cover-caption .rotating-word{display:inline-block;color:var(--ink);font-style:italic;font-weight:900}
-@media(max-width:600px){.cover-caption{top:calc(50% + 48px);font-size:clamp(15px,4.2vw,20px)}}
-@media(prefers-reduced-motion:no-preference){.rotating-word{transition:opacity .25s ease,transform .35s var(--ease-editorial)}.rotating-word.changing{opacity:0;transform:translateY(5px)}}
-
-/* Blob Studio mascot adapted to native SVG. */
-.cover .orbit-tile{background:transparent!important;width:clamp(48px,8vw,100px)}
-.orbit-tile svg{display:block;width:100%;height:100%;overflow:visible}
-@media(max-width:600px){.cover .orbit-tile{width:clamp(40px,13vw,58px)}}
-
-/* Keep the subtitle clear of the orbit at every viewport size. */
-.cover-caption{top:calc(50% + var(--caption-offset,clamp(90px,14vw,170px)))}
-
-.cover-subcaption{display:block;margin-top:.65em;font-size:.62em;font-weight:400;font-style:italic;line-height:1.4}
-
-/* Flock service landing page */
-.cover{flex:none;min-height:clamp(420px,49vw,550px)}
-.sales{font-family:Arial,sans-serif;font-size:14px;line-height:1.55}
-.sales h2,.sales h3{font-family:Portrait,Georgia,serif;font-weight:400;line-height:1.12;letter-spacing:-.035em;margin:0}
-.sales h2{font-size:clamp(32px,5vw,58px)}
-.sales h3{font-size:clamp(23px,3vw,32px)}
-.sales p{margin:0}
-.sales .lead{font-family:Portrait,Georgia,serif;font-size:clamp(18px,2.4vw,24px);max-width:630px;color:#57534e;margin-top:16px}
-.sales-section{border-top:1px solid var(--rule);padding:64px 0}
-.eyebrow{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;margin-bottom:14px!important;color:#6e685f}
-.hero-actions{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap;padding:0 0 36px}
-.sales-btn{display:inline-flex;align-items:center;justify-content:center;gap:14px;padding:13px 19px;border:1px solid var(--ink);border-radius:5px;font:600 13px Arial,sans-serif;cursor:pointer;text-decoration:none!important;background:var(--ink);color:var(--paper)}
-.sales-btn:hover{opacity:.82}.sales-btn.secondary{background:transparent;color:var(--ink)}
-.demo{border:1px solid #b5b0a7;border-radius:9px;overflow:hidden;background:#f7f5f0;box-shadow:0 14px 36px #2422200b}
-.demo-top{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;border-bottom:1px solid #d3cfc5;font-size:11px;color:#625e56}
-.demo-top b{color:var(--ink)}.demo-window{display:grid;grid-template-columns:29% 1fr;min-height:350px}
-.demo-nav{background:#e6e3db;border-right:1px solid #d3cfc5;padding:16px 9px}.demo-nav .eyebrow{margin-left:7px}
-.demo-tab{width:100%;text-align:left;display:flex;gap:10px;align-items:center;border:1px solid transparent;background:none;padding:12px 8px;border-radius:5px;color:var(--ink);cursor:pointer;font:inherit}
-.demo-tab[aria-selected=true]{border-color:#c6c1b7;background:#f7f5f0}.demo-tab small{display:block;font-size:10px;color:#686259}.demo-dot{flex:none;width:9px;height:9px;border-radius:50%;background:var(--dot,#452a38)}
-.demo-main{padding:23px 28px;display:flex;flex-direction:column;gap:14px}.demo-main h3{font-size:24px}.demo-status{font-size:11px;color:#48624e}.demo-msg{max-width:88%;background:#eeece6;padding:11px 13px;border:1px solid #e0dcd3;border-radius:7px;font-size:13px}.demo-msg.user{align-self:flex-end;background:#dce4d9;border-color:#cbd6c7}.demo-meta{font-size:10px;color:#716b63;margin-top:auto}.demo-note{text-align:center;font-size:11px;color:#706a61;margin:12px 0 45px!important}
-.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:28px}
-.service-card{border:1px solid #bdb8ae;border-radius:6px;padding:23px;min-width:0;display:flex;flex-direction:column;gap:13px}
-.service-card p{color:#605c54}.mini-visual{background:#e5e2d9;border:1px solid #d5d0c6;border-radius:5px;padding:12px;min-height:104px;display:grid;gap:7px;align-content:center;margin-top:auto}
-.mini-row{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:11px;padding:7px 9px;background:#f7f5ef;border-radius:3px}.mini-row b{font-size:10px;color:#435b45;font-weight:600}
-.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:34px}.step{border-top:1px solid var(--rule);padding-top:13px}.step-num{font:italic 25px Georgia,serif;color:#82796f;margin-bottom:17px!important}.step h3{font-size:24px;margin-bottom:9px}.step p{font-size:13px;color:#625d54}
-.faq{margin-top:26px}.faq details{border-top:1px solid var(--rule);padding:17px 0}.faq details:last-child{border-bottom:1px solid var(--rule)}.faq summary{cursor:pointer;font-family:Portrait,Georgia,serif;font-size:21px}.faq details p{max-width:720px;padding:12px 0 0;color:#605b54}
-.contact-panel{background:#292724;color:#eeece6;border-radius:7px;padding:clamp(23px,5vw,48px);display:grid;grid-template-columns:1fr 1fr;gap:30px}.contact-panel .lead{color:#c7c2b8;font-size:20px}.contact-panel form{display:grid;gap:10px}.contact-panel label{font-size:11px;color:#e0dbd2}.contact-panel input,.contact-panel textarea{width:100%;padding:10px;border-radius:4px;border:1px solid #777169;background:#34322e;color:#fff;font:14px Arial,sans-serif}.contact-panel textarea{min-height:95px;resize:vertical}.contact-panel .sales-btn{background:#eeece6;color:#242220;border-color:#eeece6}.contact-panel .contact-note{font-size:11px;color:#c7c2b8}.sales-footer{border-top:1px solid var(--rule);padding:18px 0;display:flex;justify-content:space-between;gap:10px;font-size:12px}
-@media(max-width:600px){.cover{min-height:370px}.sales-section{padding:42px 0}.demo-window{grid-template-columns:1fr}.demo-nav{display:grid;grid-template-columns:repeat(2,1fr);border-right:0;border-bottom:1px solid #d3cfc5;padding:8px;gap:3px}.demo-nav .eyebrow{grid-column:1/-1;margin:3px 7px!important}.demo-tab{font-size:11px;padding:8px 5px;gap:5px}.demo-tab small{font-size:9px}.demo-main{padding:16px;min-height:310px}.demo-msg{max-width:96%;font-size:12px}.service-grid,.contact-panel{grid-template-columns:1fr}.steps{grid-template-columns:repeat(2,1fr);gap:18px}.service-card{padding:17px}.hero-actions{padding-bottom:24px}.sales-btn{font-size:12px;padding:12px 14px}.demo-note{margin-bottom:28px!important}}
-
-.factory{margin:8px 0 58px;border-block:1px solid var(--rule);padding-top:28px;overflow:hidden}
-.factory-header{display:grid;grid-template-columns:1.4fr 1fr;gap:24px;align-items:end;margin-bottom:22px}
-.factory-header>p{color:#625e56;max-width:280px;justify-self:end;font-family:Portrait,Georgia,serif;font-size:19px}
-.factory-scene{background-image:radial-gradient(#a39f9670 .7px,transparent .8px);background-size:15px 15px;overflow:hidden}
-.factory-scene svg{display:block;width:100%;height:auto}
-.line-signal{animation:signal-flow 1.4s linear infinite}.belt-motion{animation:signal-flow .6s linear infinite}
-@keyframes signal-flow{to{stroke-dashoffset:-36}}
-.line-worker{transform-box:fill-box;transform-origin:center;animation:worker-bob 2.8s ease-in-out infinite;animation-delay:var(--phase)}
-@keyframes worker-bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
-.factory-bottom{display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:10px;letter-spacing:.07em;color:#6b645a;padding:10px 0}
-.factory-bottom button{background:transparent;border:1px solid var(--rule);color:var(--ink);padding:5px 9px;cursor:pointer;font:11px Arial,sans-serif}
-.factory-ticker,.integration-belt{overflow:hidden;border-block:1px solid var(--rule);padding:12px 0}
-.factory-track,.integration-track{display:flex;width:max-content;animation:factory-marquee 23s linear infinite}
-.factory-track span{padding-right:40px;font-size:11px;color:#5c6553;white-space:nowrap}
-@keyframes factory-marquee{to{transform:translateX(-50%)}}
-.factory-disclaimer{font-size:10px;color:#726b61;padding:10px 0}
-.factory.paused *{animation-play-state:paused!important}
-.service-grid{gap:0;border-top:1px solid var(--rule);border-left:1px solid var(--rule)}
-.service-card{border:0;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);border-radius:0;padding:25px}
-.mini-visual{border:0;border-block:1px solid #c0baaf;border-radius:0;background:transparent;padding:12px 0;overflow:hidden}
-.mini-row{background:#e4e0d7;animation:mini-throughput 8s ease-in-out infinite}
-.mini-row:nth-child(2){animation-delay:1.2s}.mini-row:nth-child(3){animation-delay:2.4s}
-@keyframes mini-throughput{0%,100%,40%{transform:translateX(0);opacity:1}48%{transform:translateX(12px);opacity:.45}49%{transform:translateX(-12px);opacity:.45}62%{transform:translateX(0);opacity:1}}
-.integration-belt{margin:26px 0;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
-.integration-track{animation-duration:19s}.integration-track span{display:flex;align-items:center;gap:10px;padding-right:48px;white-space:nowrap;font:23px Portrait,Georgia,serif}.integration-track i{display:grid;place-items:center;width:27px;height:27px;border:1px solid var(--ink);font:14px Arial,sans-serif}
-@media(max-width:600px){.factory-header{grid-template-columns:1fr;gap:10px}.factory-header>p{justify-self:start;font-size:17px}.factory-scene{overflow-x:auto}.factory-scene svg{min-width:650px}.factory{margin-bottom:34px}.factory-bottom{font-size:8px}.integration-track span{font-size:19px}.service-card{padding:18px}}
-@media(prefers-reduced-motion:reduce){.factory *,.mini-row,.integration-track{animation:none!important}}
-
-/* Industrial rhythm: one continuous, readable process rather than disconnected cards. */
-.masthead{grid-template-columns:1fr auto;align-items:center;font-size:14px}
-.masthead>span{display:none}.masthead nav{display:flex;gap:18px;align-items:center}
-.masthead nav a{white-space:nowrap}
-.masthead .brand-mark{font:900 24px 'Barlow Condensed',Impact,sans-serif;letter-spacing:-.02em}
-.cover{min-height:clamp(390px,45vw,510px)}
-.hero-actions{padding-bottom:44px}
-.sales-section{padding:58px 0}
-.factory{margin:0 0 56px;padding:30px 0 20px}
-.factory-header{margin-bottom:24px}
-.plant-toolbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
-.plant-cases{display:flex;gap:5px;flex-wrap:wrap}
-.plant-cases button,.plant-pause{border:1px solid #a39f96;background:transparent;color:#242220;padding:8px 10px;border-radius:3px;font:12px Arial,sans-serif;cursor:pointer}
-.plant-cases button[aria-pressed=true]{background:#242220;color:#eeece6;border-color:#242220}
-.plant button:focus-visible,.plant-toolbar button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
-.plant{position:relative;background:#292724;color:#eeece6;border:1px solid #292724;border-radius:6px;overflow:hidden;font:11px Arial,sans-serif}
-.plant-status,.plant-output{display:flex;justify-content:space-between;align-items:center;padding:13px 19px;gap:12px;letter-spacing:.08em;font-size:10px}
-.plant-status{border-bottom:1px solid #5d5851}.plant-status i{display:inline-block;width:7px;height:7px;border-radius:50%;background:#b7cd9c;margin-right:6px}
-.plant-floor{position:relative;background-color:#e5e1d7;background-image:radial-gradient(#9f998755 .8px,transparent .9px);background-size:15px 15px;padding:25px 25px 18px;color:#242220}
-.plant-stations{position:relative;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;z-index:2}
-.plant-station{min-width:0;display:grid;grid-template-rows:auto 100px auto auto;gap:7px;text-align:center;position:relative}
-.plant-step{font-size:9px;letter-spacing:.08em;font-weight:700;color:#625c51;white-space:nowrap}
-.plant-machine{position:relative;display:grid;place-items:center;background:#f3f0e8;border:1px solid #9e978a;border-radius:4px;overflow:hidden;box-shadow:inset 0 -8px #ded9cd;transition:border-color .2s,background .2s}
-.plant-machine::before{content:"";position:absolute;left:0;right:0;top:0;height:5px;background:var(--station-color)}
-.plant-machine svg{width:88px;height:88px;filter:drop-shadow(0 2px 0 #24222016);transition:none}
-.plant-light{position:absolute;top:12px;right:9px;width:7px;height:7px;border-radius:50%;background:#aaa498}
-.plant-station.active .plant-machine{border-color:var(--station-color);background:#faf7ee}
-.plant-station.active .plant-light{background:#668352;box-shadow:0 0 0 3px #66835225}
-.plant-station.active .plant-machine svg{transform:none}
-.plant-task{font:16px/1.15 Portrait,Georgia,serif;min-height:37px;display:grid;place-items:center}
-.plant-state{font-size:10px;color:#615d55;min-height:14px}.plant-station.active .plant-state{color:#34493d;font-weight:bold}
-.plant-belt{position:relative;margin:14px 0 0;height:52px;border-block:1px solid #8b8476;background:#c8c2b5;overflow:hidden}
-.plant-rollers{position:absolute;inset:0;background:repeating-linear-gradient(90deg,#b8b2a6 0 2px,#d8d3c8 2px 12px,#b8b2a6 12px 14px);animation:rollers-flow .8s linear infinite}
-@keyframes rollers-flow{to{background-position:14px 0}}
-.plant-packet{position:absolute;top:6px;left:0;display:flex;align-items:center;gap:6px;padding:6px 9px;border:1px solid #81796c;border-radius:3px;background:#faf7ed;box-shadow:2px 3px 0 #24222018;font-size:10px;white-space:nowrap;will-change:transform}
-.packet-icon{font:bold 17px/1 Arial,sans-serif;color:#625e56}.plant-packet.done{background:#dce5d6;border-color:#6e8461}.plant-packet.done .packet-icon{color:#34493d}
-.plant-output{min-height:40px;letter-spacing:.02em}.plant-output span:first-child{font-size:12px}
-.factory-disclaimer{margin-top:9px!important}
-.plant-mobile-guide{display:none}
-.factory.paused .plant-rollers{animation-play-state:paused}
-.demo{box-shadow:none}.demo-note{margin-bottom:30px!important}.demo-window{min-height:320px}
-.service-grid{border:0;gap:0}.service-card{border:0;border-top:1px solid var(--rule);padding:22px 22px 25px 0}.service-card:nth-child(even){padding:22px 0 25px 22px;border-left:1px solid var(--rule)}
-.mini-row{animation:none}.mini-visual{min-height:95px}
-.integration-belt{margin:30px 0}.integration-track{animation-duration:27s}
-@media(max-width:600px){.masthead nav{gap:12px;font-size:11px}.masthead .brand-mark{font-size:22px}.cover{min-height:370px}.hero-actions{padding-bottom:30px}.factory{padding-top:24px;margin-bottom:32px}.plant-toolbar{align-items:flex-start;flex-direction:column}.plant-cases{gap:4px}.plant-cases button,.plant-pause{font-size:11px;padding:7px 8px}.plant-floor{padding:15px 14px}.plant-stations{display:grid;grid-template-columns:1fr;gap:0;padding-right:37px}.plant-station{display:grid;grid-template-columns:62px 1fr;grid-template-rows:16px auto 15px;gap:3px 12px;text-align:left;padding:8px 0;min-height:88px;border-bottom:1px solid #a39f9655}.plant-station:last-child{border:0}.plant-step{grid-column:2;grid-row:1}.plant-machine{grid-column:1;grid-row:1/4;height:62px}.plant-machine svg{width:60px;height:60px}.plant-light{top:9px;right:6px;width:5px;height:5px}.plant-task{grid-column:2;grid-row:2;display:block;min-height:0;font-size:16px}.plant-state{grid-column:2;grid-row:3}.plant-belt{position:absolute;right:11px;top:20px;bottom:20px;width:28px;height:auto;margin:0;border:0;border-inline:1px solid #8b8476}.plant-rollers{background:repeating-linear-gradient(0deg,#b8b2a6 0 2px,#d8d3c8 2px 12px,#b8b2a6 12px 14px);animation:rollers-mobile .8s linear infinite}.plant-packet{left:2px;top:0;padding:4px;width:22px;height:26px;justify-content:center}.plant-packet #packet-label{display:none}.plant-packet .packet-icon{font-size:14px}.plant-output,.plant-status{padding:11px 12px;font-size:9px}.plant-output span:first-child{font-size:11px}.service-card,.service-card:nth-child(even){padding:20px 0;border-left:0}.sales-section{padding:40px 0}}
-@keyframes rollers-mobile{to{background-position:0 14px}}
-@media(prefers-reduced-motion:reduce){.plant-rollers,.integration-track{animation:none!important}.plant-machine,.plant-machine svg{transition:none!important}}
-
-/* Keep animated examples legible and align stage transitions with the belt. */
-.plant-packet{transition:background-color .2s,border-color .2s;min-width:83px;justify-content:center}
-.plant-state{line-height:1.2}
-@media(max-width:600px){.plant-packet{min-width:0}.plant-output #plant-count{white-space:nowrap}.plant-task{overflow-wrap:anywhere}}
-@media(prefers-reduced-motion:reduce){.plant-packet{transition:none}}
-.plant-controls{display:flex;gap:5px;flex-wrap:wrap}.plant-controls [hidden]{display:none!important}.plant-packet{width:96px;min-width:96px}.flock-paused .pattern-row,.flock-paused .plant-rollers,.flock-paused .integration-track,.integration-offscreen .integration-track{animation-play-state:paused!important}.flock-paused .rotating-word{transition:none!important}@media(max-width:600px){.plant-packet{width:22px;min-width:0}}
-.packet-icon{font-size:9px;letter-spacing:.04em}.plant-packet.done .packet-icon{font-size:10px}
-
-/* Consistent semantic, monochrome line icons; no emoji or external dependency. */
-.ui-icon{display:inline-block;width:20px;height:20px;flex:none;vertical-align:middle;color:currentColor}
-.integration-track .ui-icon{width:28px;height:28px;stroke-width:1.35}
-.demo-tab .demo-icon{width:18px;height:18px;color:#625c51}
-.demo-tab[aria-selected=true] .demo-icon{color:var(--ink)}
-.service-card h3{display:flex;align-items:center;gap:10px}.service-icon{width:24px;height:24px;stroke-width:1.35}
-.plant-packet .packet-icon{display:flex;align-items:center;justify-content:center}.plant-packet .ui-icon{width:17px;height:17px}
-@media(max-width:600px){.plant-packet .ui-icon{width:13px;height:13px}.demo-tab .demo-icon{width:15px;height:15px}.integration-track .ui-icon{width:23px;height:23px}.service-icon{width:21px;height:21px}}
-.plant-controls,#factory-pause,#factory-next{display:none!important}
-
-/* Open conveyor: agents and tasks sit directly on the page, without a dashboard enclosure. */
-.plant-open{background:transparent;color:var(--ink);border:0;border-radius:0;overflow:visible}
-.plant-open .plant-status{border:0;padding:18px 0 6px;font-size:10px;color:#625c51;letter-spacing:.09em;text-transform:uppercase}
-.plant-open .plant-floor{background:none;padding:22px 0 0;overflow:visible}
-.plant-open .plant-stations{gap:18px}
-.plant-open .plant-station{grid-template-rows:auto 116px auto 16px;gap:8px}
-.plant-open .plant-machine,.plant-open .plant-station.active .plant-machine{border:0;background:transparent;box-shadow:none;border-radius:0;overflow:visible}
-.plant-open .plant-machine::before{display:none}
-.plant-open .plant-machine svg{width:116px;height:116px;filter:none}
-.plant-open .plant-step{font-size:10px;letter-spacing:.12em}
-.plant-open .plant-task{font-size:clamp(16px,2vw,21px);min-height:40px}
-.plant-open .plant-state{font-size:11px;color:#797268}
-.plant-open .plant-station.active .plant-state{color:var(--station-color);font-weight:600}
-.plant-open .plant-station::after{content:"";position:absolute;top:100%;left:50%;height:20px;border-left:1px dashed #b3ac9f}
-.plant-open .plant-belt{height:42px;margin:26px 0 0;background:transparent;border-color:#a39f96}
-.plant-open .plant-rollers{opacity:.65;background:repeating-linear-gradient(90deg,transparent 0 12px,#b1aa9d 12px 13px,transparent 13px 14px)}
-.plant-open .plant-packet{top:5px;height:30px;padding:4px 6px;background:#f8f5ed;border-color:#b0a99b;box-shadow:none;border-radius:2px}
-.plant-open .plant-packet.done{background:#e0e6d9;border-color:#859278}
-.plant-open .plant-output{padding:13px 0 0;min-height:34px;color:#625c51;border:0}
-.plant-open .plant-output span:first-child{font:italic 15px Portrait,Georgia,serif;color:var(--ink)}
-.plant-open #plant-count{font-size:10px;letter-spacing:.08em}
-.factory-disclaimer{padding:6px 0}
-@media(max-width:600px){
-.plant-open .plant-status{padding-top:13px}
-.plant-open .plant-floor{padding:8px 0 0}
-.plant-open .plant-stations{gap:0;padding-right:45px}
-.plant-open .plant-station{grid-template-rows:16px auto 16px;grid-template-columns:74px 1fr;gap:4px 9px;min-height:99px;padding:12px 0;border:0}
-.plant-open .plant-machine{height:70px}
-.plant-open .plant-machine svg{width:74px;height:74px}
-.plant-open .plant-task{font-size:17px;min-height:0}
-.plant-open .plant-step{font-size:9px}
-.plant-open .plant-state{font-size:10px}
-.plant-open .plant-station::after{top:50%;left:100%;width:12px;height:0;border-left:0;border-top:1px dashed #b3ac9f}
-.plant-open .plant-belt{right:0;top:8px;bottom:0;width:32px;height:auto;margin:0}
-.plant-open .plant-rollers{background:repeating-linear-gradient(0deg,transparent 0 12px,#b1aa9d 12px 13px,transparent 13px 14px)}
-.plant-open .plant-packet{top:0;left:4px;width:22px;height:26px;padding:4px}
-.plant-open .plant-output{gap:12px}
-.plant-open .plant-output span:first-child{font-size:12px}
+.cover h1 .letter { display: inline-block; transform-origin: 50% 90%; }
+.orbit { position: absolute; inset: 0; pointer-events: none; }
+.orbit-tile {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: clamp(48px, 8vw, 100px);
+  aspect-ratio: 1;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+.orbit-tile svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.cover-caption {
+  position: absolute;
+  z-index: 4;
+  inset-inline: 0;
+  top: calc(50% + var(--caption-offset, clamp(90px, 14vw, 170px)));
+  text-align: center;
+  font: 400 clamp(16px, 2.2vw, 27px)/1.4 var(--font-display);
+  pointer-events: none;
+}
+.rotating-word { display: inline-block; color: var(--ink); font-style: italic; font-weight: 900; }
+.cover-subcaption { display: block; margin-top: .65em; font-size: .62em; font-weight: 400; font-style: italic; line-height: 1.4; }
+.hero-actions, .contact-actions { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 20px; }
+.hero-actions { justify-content: center; gap: 12px; padding-bottom: 44px; }
+.sales-btn {
+  position: relative;
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border: 1px solid var(--ink);
+  border-radius: 5px;
+  background: var(--ink);
+  color: var(--paper);
+  font-size: .875rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.hero-actions .sales-btn { min-height: 0; padding: 13px 19px; font-size: .8125rem; line-height: normal; }
+.sales-btn:hover { opacity: .85; }
+.sales-btn.secondary { background: transparent; color: var(--ink); }
+.sales-btn.secondary:hover { text-decoration: underline; }
+.sales-btn:active, .plant-cases button:active, .demo-tab:active { opacity: .82; }
+.sales-section, .factory { border-top: 1px solid var(--rule); padding-block: var(--section-space); }
+.factory { padding-top: clamp(32px, 5vw, 64px); }
+.factory-header, .section-intro { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); align-items: end; gap: var(--column-gap); margin-bottom: 32px; }
+.factory-header p { font-family: var(--font-display); max-width: 45ch; color: var(--muted); }
+.plant-cases { display: flex; flex-wrap: wrap; gap: 4px 12px; }
+.plant-cases button, .demo-tab { border: 0; background: transparent; color: var(--ink); cursor: pointer; }
+.plant-cases button { min-height: 44px; padding: 8px 12px; border-bottom: 2px solid transparent; font-size: .875rem; }
+.plant-cases button:hover, .demo-tab:hover { background: var(--proof-paper); }
+.plant-cases button[aria-pressed=true] { border-color: var(--ink); background: var(--ink); color: var(--paper); font-weight: 600; }
+.plant-status, .plant-output { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: .8125rem; }
+.plant-status, .plant-output, .plant-step, .plant-state { font-variant-numeric: tabular-nums; }
+.plant-status { border-top: 1px solid var(--rule); padding-block: 12px; }
+.plant-floor { position: relative; }
+.plant-stations { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.plant-station { display: grid; grid-template-rows: auto 92px auto auto; gap: 4px; justify-items: center; padding: 8px 0; text-align: center; }
+.plant-step, .plant-state { color: var(--muted); font-size: .8125rem; }
+.plant-machine { width: 92px; }
+.plant-machine svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.plant-task { font-size: clamp(.875rem, 1.45vw, 1.1875rem); font-weight: 600; }
+.plant-station.active .plant-state { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--ink); text-underline-offset: .18em; }
+.plant-belt { position: relative; height: 36px; margin-top: 12px; border-block: 1px solid var(--rule); background: var(--proof-paper); }
+.plant-rollers { position: absolute; inset: 0; background: repeating-linear-gradient(90deg, transparent 0 14px, var(--rule) 14px 15px); }
+.plant-packet { position: absolute; top: 2px; left: 0; display: flex; align-items: center; gap: 4px; height: 30px; padding: 0 8px; background: var(--paper); border: 1px solid var(--rule); color: var(--ink); white-space: nowrap; font-size: .8125rem; }
+.plant-packet.done { color: var(--approved); }
+.plant-packet .ui-icon { width: 16px; height: 16px; display: block; }
+.plant-output { padding-top: 12px; color: var(--ink); }
+#solucoes .service-grid { border-top: 2px solid var(--ink); }
+.service-card { display: grid; min-width: 0; gap: 12px; padding-block: 24px; border-bottom: 1px solid var(--rule); }
+#solucoes .service-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) minmax(0, .95fr); align-items: start; gap: var(--column-gap); }
+.service-card h3 { display: flex; align-items: baseline; gap: 8px; }
+.service-card h3 .ui-icon { align-self: start; }
+.service-card p, .step p { color: var(--muted); }
+.mini-visual { padding: 4px 12px; background: var(--proof-paper); }
+.mini-row { display: flex; flex-wrap: wrap; justify-content: space-between; column-gap: 8px; padding-block: 4px; font-size: .8125rem; }
+.mini-row + .mini-row { border-top: 1px solid var(--rule); }
+.mini-row b { color: var(--approved); font-weight: 600; }
+.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.step { display: grid; align-content: start; gap: 8px; border-top: 2px solid var(--ink); padding-top: 12px; }
+.step .step-num { color: var(--ink); font: 400 2.5rem/1 var(--font-display); }
+.integration-belt { padding-block: 12px; border-block: 1px solid var(--rule); }
+.integration-track { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.integration-track span { display: inline-flex; align-items: center; gap: 8px; padding-block: 4px; font-size: .9375rem; }
+.integration-track span:nth-child(n+8) { display: none; }
+.integrations .service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--column-gap); }
+.review-demo { margin-top: 32px; }
+.demo { background: var(--proof-paper); border: 1px solid var(--rule); border-radius: 6px; }
+.demo-top { padding: 12px 20px; border-bottom: 1px solid var(--rule); font-size: .875rem; }
+.demo-window { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2.4fr); }
+.demo-nav { display: grid; align-content: start; border-right: 1px solid var(--rule); padding: 8px; }
+.demo-tab { display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 8px; text-align: left; font-size: .9375rem; border-inline-start: 2px solid transparent; }
+.demo-tab:hover { background: var(--proof-paper-deep); }
+.demo-tab[aria-selected=true] { background: var(--paper); color: var(--ink); border-inline-start: 2px solid var(--ink); }
+.demo-tab small { display: block; color: var(--muted); }
+.demo-main { display: grid; align-content: start; gap: 8px; min-height: 240px; padding: 24px; }
+.demo-status, .demo-meta { color: var(--muted); font-size: .875rem; }
+.demo-msg { width: fit-content; background: var(--paper); padding: 8px 12px; }
+.demo-msg.user { justify-self: end; background: var(--proof-paper-deep); }
+.faq { border-top: 2px solid var(--ink); }
+.faq details { border-bottom: 1px solid var(--rule); }
+.faq summary { min-height: 48px; padding: 12px 0; font-size: 1.0625rem; cursor: pointer; }
+.faq summary:hover { color: var(--ink); }
+.faq details p { padding: 0 0 16px 20px; color: var(--muted); }
+#contato { padding-block: 0 clamp(24px, 4vw, 64px); border: 0; }
+.contact-panel { border-radius: 7px; display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); align-items: center; gap: var(--column-gap); padding: clamp(24px, 5vw, 64px); background: var(--ink); color: var(--paper); }
+.contact-panel h2 { max-width: 19ch; }
+.contact-panel .lead { margin-top: 16px; color: var(--contact-muted); }
+.contact-panel .contact-actions { margin-top: 0; }
+.contact-panel .sales-btn { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.contact-panel .sales-btn.secondary { background: transparent; color: var(--paper); border-color: var(--paper); }
+.contact-panel .sales-btn:hover { text-decoration: underline; }
+.contact-panel :focus-visible { outline-color: var(--paper); }
+@media (max-width: 900px) {
+  #solucoes .service-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px 24px; }
+  #solucoes .mini-visual { grid-column: 2; }
+}
+@media (max-width: 700px) {
+  .factory-header, .section-intro, .contact-panel { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 600px) {
+  .hero { width: min(100%, calc(100vw - 36px)); }
+  .cover { min-height: 370px; padding: 55px 0; }
+  .cover h1 { font-size: clamp(65px, 20vw, 112px); }
+  .cover-pattern { font-size: clamp(65px, 20vw, 100px); opacity: .05; }
+  .orbit-tile { width: clamp(40px, 13vw, 58px); }
+  .cover-caption { font-size: clamp(15px, 4.2vw, 20px); }
+  .hero-actions { padding-bottom: 30px; }
+  .hero-actions .sales-btn { padding: 12px 14px; font-size: .75rem; }
+  .plant-stations { grid-template-columns: minmax(0, 1fr); gap: 0; padding-right: 44px; }
+  .plant-station { min-height: 84px; grid-template: auto auto auto / 56px minmax(0, 1fr); align-content: center; justify-items: start; column-gap: 12px; border-bottom: 1px solid var(--rule); text-align: left; }
+  .plant-machine { grid-area: 1 / 1 / 4 / 2; width: 56px; }
+  .plant-step, .plant-task, .plant-state { grid-column: 2; }
+  .plant-belt { position: absolute; inset: 0 0 0 auto; width: 32px; height: auto; margin: 0; border: 1px solid var(--rule); }
+  .plant-rollers { background: repeating-linear-gradient(0deg, transparent 0 14px, var(--rule) 14px 15px); }
+  .plant-packet { top: 0; left: 3px; width: 24px; height: 26px; padding: 0; justify-content: center; }
+  #packet-label { position: absolute; width: 1px; height: 1px; overflow: clip; clip-path: inset(50%); }
+  #solucoes .service-card, .integrations .service-grid, .demo-window { grid-template-columns: minmax(0, 1fr); }
+  #solucoes .mini-visual { grid-column: auto; }
+  .integrations .service-grid { gap: 0; }
+  .demo-nav { grid-template-columns: repeat(2, minmax(0, 1fr)); border-right: 0; border-bottom: 1px solid var(--rule); }
+  .demo-main { padding: 16px; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .motion .cover h1 .letter { animation: letter-arrival 900ms var(--ease-editorial) both; animation-delay: calc(120ms + var(--i) * 65ms); }
+  .motion .pattern-row { animation: pattern-drift 44s linear infinite alternate; }
+  .motion .pattern-row:nth-child(even) { animation-duration: 53s; animation-direction: alternate-reverse; }
+  .motion-paused .pattern-row, .motion-paused .letter { animation-play-state: paused; }
+  .rotating-word { transition: opacity .25s ease, transform .35s var(--ease-editorial); }
+  .rotating-word.changing { opacity: 0; transform: translateY(5px); }
+  @keyframes letter-arrival {
+    from { opacity: 0; transform: translateY(.42em) rotate(-7deg) scaleY(.78); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes pattern-drift {
+    from { transform: translateX(-8%); }
+    to { transform: translateX(-32%); }
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .rotating-word { transition: none; }
 }
 </style>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&amp;display=swap">
 </head>
 <body><main class="page">
 <header class="masthead"><a class="brand-mark" href="./" aria-label="Flock, início">FLOCK</a><nav aria-label="Navegação principal"><a href="#fluxo">Fluxo</a><a href="#solucoes">Soluções</a><a href="#contato">Contato</a></nav></header>
-<section class="cover" aria-label="Capa"><div class="cover-pattern" aria-hidden="true"><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div></div><div class="orbit" aria-hidden="true"><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span></div><h1 aria-label="Flock"><span aria-hidden="true" class="letter" style="--i:0">F</span><span aria-hidden="true" class="letter" style="--i:1">L</span><span aria-hidden="true" class="letter" style="--i:2">O</span><span aria-hidden="true" class="letter" style="--i:3">C</span><span aria-hidden="true" class="letter" style="--i:4">K</span></h1><p class="cover-caption"><span class="caption-prefix">Seu</span> <span class="rotating-word">negócio</span> no piloto automático.<span class="cover-subcaption">a produtividade do seu negócio no 2x</span></p></section>
+<div class="hero">
+<section class="cover" aria-label="Capa"><div class="cover-pattern" aria-hidden="true"><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div><div class="pattern-row"><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span><span>FLOCK</span></div></div><div class="orbit" aria-hidden="true"><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span><span class="orbit-tile"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></span></div><h1 aria-label="Flock"><span aria-hidden="true" class="letter" style="--i:0">F</span><span aria-hidden="true" class="letter" style="--i:1">L</span><span aria-hidden="true" class="letter" style="--i:2">O</span><span aria-hidden="true" class="letter" style="--i:3">C</span><span aria-hidden="true" class="letter" style="--i:4">K</span></h1><p class="cover-caption"><span class="caption-prefix">Seu</span> <span class="rotating-word">negócio</span> no piloto automático.<span class="cover-subcaption">Automação administrativa sob medida.</span></p></section>
+<div class="hero-actions"><a class="sales-btn" href="#contato">Quero automatizar minha empresa</a><a class="sales-btn secondary" href="#fluxo">Veja como funciona</a></div>
+</div>
 <div class="sales">
-<div class="hero-actions"><a class="sales-btn" href="#contato">Quero automatizar minha empresa </a><a class="sales-btn secondary" href="#fluxo">Veja como funciona</a></div>
-<section class="factory" id="fluxo" aria-label="Demonstração de automação administrativa"><div class="factory-header"><div><p class="eyebrow">01 / A operação</p><h2>O trabalho entra.<br>O resultado sai.</h2></div><p>Transformamos tarefas manuais em fluxos conectados, da entrada de dados à entrega.</p></div><div class="plant-toolbar"><div class="plant-cases" role="group" aria-label="Escolher exemplo de fluxo"><button type="button" data-case="0" aria-pressed="true">Financeiro</button><button type="button" data-case="1" aria-pressed="false">Relatórios</button><button type="button" data-case="2" aria-pressed="false">Atendimento</button><button type="button" data-case="3" aria-pressed="false">Rotinas internas</button></div></div><div class="plant plant-open" id="production-line"><svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs></defs></svg><div class="plant-status"><span>Ciclo de automação</span><span id="plant-cycle">LOTE 01</span></div><div class="plant-floor"><div class="plant-stations"><div class="plant-station" style="--station-color:#452a38"><span class="plant-step">01 / ENTRADA</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Faturas recebidas</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:#34493d"><span class="plant-step">02 / LEITURA</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#34493d" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#b8a77e" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#b8a77e" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f0e1c8" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Extrair valores</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:#33465a"><span class="plant-step">03 / CONTROLE</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#33465a" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#a7bac7" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#a7bac7" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#e8e2d4" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Conferir vencimentos</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:#85534a"><span class="plant-step">04 / SAÍDA</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#85534a" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d5a281" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d5a281" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f6dfc6" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Preparar cobranças</span><span class="plant-state">Aguardando</span></div></div><div class="plant-belt" aria-hidden="true"><div class="plant-rollers"></div><div class="plant-packet"><span class="packet-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg></span><span id="packet-label">Entrada</span></div></div></div><div class="plant-output"><span id="plant-event">Recebendo documentos</span><span id="plant-count">00 / 04 ETAPAS</span></div></div><p class="factory-disclaimer">Simulação com dados fictícios. Selecione uma área para acompanhar o fluxo; os sistemas e as aprovações são definidos em cada projeto.</p></section><section id="demonstracao" aria-label="Demonstração ilustrativa">
-<div class="demo"><div class="demo-top"><b>Flock / Operações</b><span>Ambiente demonstrativo</span></div><div class="demo-window">
-<div class="demo-nav" role="tablist" aria-label="Exemplos de automação"><p class="eyebrow">Sua equipe de automação</p>
-<button class="demo-tab" type="button" role="tab" aria-selected="true" data-demo="0"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="16" rx="2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h6"/></svg><span>Assistente administrativo<small>Resumo diário</small></span></button>
-<button class="demo-tab" type="button" role="tab" aria-selected="false" data-demo="1"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 7V5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16V7H5a2 2 0 0 1 0-4h12"/><path d="M21 11h-5a3 3 0 0 0 0 6h5m-5-3h.01"/></svg><span>Financeiro<small>Contas a receber</small></span></button>
-<button class="demo-tab" type="button" role="tab" aria-selected="false" data-demo="2"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9"/></svg><span>Relatórios<small>Indicadores</small></span></button>
-<button class="demo-tab" type="button" role="tab" aria-selected="false" data-demo="3"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16v12H9l-5 4zM8 8h8m-8 4h5"/></svg><span>Atendimento<small>Triagem de solicitações</small></span></button>
-</div><div class="demo-main" role="tabpanel" aria-live="polite"><h3 id="demo-title">Assistente administrativo</h3><p class="demo-status">Exemplo de rotina concluída</p><div class="demo-msg" id="demo-first">Bom dia! Organizei os e-mails recebidos, identifiquei três pendências e atualizei a planilha de acompanhamento.</div><div class="demo-msg user" id="demo-user">O que precisa da minha atenção?</div><div class="demo-msg" id="demo-last">Duas solicitações aguardam aprovação. Preparei as respostas para você revisar antes do envio.</div><p class="demo-meta">Flock · Simulação de uma rotina automatizada</p></div></div></div>
-<p class="demo-note">Demonstração ilustrativa com dados fictícios. Cada solução é desenvolvida para os processos da sua empresa.</p>
-</section>
-<section class="sales-section" id="solucoes"><p class="eyebrow">02 / O que podemos automatizar</p><h2>Menos tarefas repetitivas.<br>Mais tempo para o seu negócio.</h2><p class="lead">Desenvolvemos automações sob medida que conectam seus sistemas, organizam informações e executam rotinas administrativas com inteligência artificial.</p>
+<section class="factory" id="fluxo" aria-label="Demonstração de automação administrativa"><div class="factory-header"><div><h2>O trabalho entra.<br>O <strong>resultado</strong> sai.</h2></div><p>Transformamos tarefas manuais em fluxos conectados, da entrada de dados à entrega.</p></div><div class="plant-toolbar"><div class="plant-cases" role="group" aria-label="Escolher exemplo de fluxo"><button type="button" data-case="0" aria-pressed="true">Financeiro</button><button type="button" data-case="1" aria-pressed="false">Relatórios</button><button type="button" data-case="2" aria-pressed="false">Atendimento</button><button type="button" data-case="3" aria-pressed="false">Rotinas internas</button></div></div><div class="plant plant-open" id="production-line"><svg width="0" height="0" style="position:absolute;pointer-events:none" aria-hidden="true"><defs></defs></svg><div class="plant-status"><span>Ciclo de automação</span><span id="plant-cycle">Lote 01</span></div><div class="plant-floor"><div class="plant-stations"><div class="plant-station" style="--station-color:var(--mascot-plum)"><span class="plant-step">01 / Entrada</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#452a38" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d28f88" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d28f88" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f8dcca" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Faturas recebidas</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:var(--mascot-green)"><span class="plant-step">02 / Leitura</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#34493d" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#b8a77e" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#b8a77e" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f0e1c8" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Extrair valores</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:var(--mascot-blue)"><span class="plant-step">03 / Controle</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#33465a" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#a7bac7" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#a7bac7" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#e8e2d4" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Conferir vencimentos</span><span class="plant-state">Aguardando</span></div><div class="plant-station" style="--station-color:var(--mascot-clay)"><span class="plant-step">04 / Saída</span><div class="plant-machine"><svg viewBox="-15 -15 258.541 258.541" aria-hidden="true"><g transform="translate(-223.0309 -220.6546) scale(.371759)"><path fill="#85534a" d="M771 771 C785 717 829 679 883 678 C925 676 959 693 976 726 C1044 711 1098 755 1096 824 C1138 825 1171 852 1168 894 C1201 916 1224 950 1211 984 C1199 1021 1156 1030 1110 1008 C1100 1053 1054 1091 1002 1073 C979 1109 943 1124 907 1124 C870 1124 835 1106 815 1075 C763 1090 714 1063 704 1005 C667 1025 630 1024 608 996 C582 963 623 906 672 881 C662 829 706 774 771 771Z"/><path fill="#d5a281" d="M767 886 C744 901 716 909 683 923 C651 937 626 960 632 979 C640 1004 695 983 721 959 C746 937 758 913 767 886Z"/><path fill="#d5a281" d="M1047 886 C1073 904 1102 909 1132 922 C1162 936 1188 958 1184 977 C1179 1002 1126 985 1096 959 C1072 938 1057 911 1047 886Z"/><path fill="#f6dfc6" d="M810 846 C841 875 881 884 923 867 C953 856 973 835 974 820 C961 834 941 822 942 806 C943 791 957 781 972 784 C998 789 1014 822 989 858 C1014 880 1032 911 1031 946 C1031 1003 979 1034 906 1034 C831 1034 775 1007 773 945 C771 909 786 874 810 846Z"/></g><g transform="translate(109 121) scale(.47) translate(-120 -122.5)" fill="#472e3b"><path class="mascot-eye" d="M94.5 99.1 L102.5 101.6 L106.5 109 L105.4 117.5 L103.8 126 L100.3 133.7 L92.7 137.2 L84.8 134.6 L80.8 127.2 L81.9 118.7 L83.6 110.3 L86.9 102.5 Z"/><path class="mascot-eye" d="M149.5 107.8 L156 112.2 L157.5 120.1 L156.3 128.1 L154.5 136.1 L150.5 143 L143 145.8 L136.4 141.6 L135.3 133.7 L137 125.7 L138.3 117.7 L142.1 110.6 Z"/><path class="mascot-mouth" fill="none" stroke="#472e3b" stroke-width="7.5" stroke-linecap="round" d="M101.8 159.1 Q113.3 163 125.4 163"/></g></svg></div><span class="plant-task">Preparar cobranças</span><span class="plant-state">Aguardando</span></div></div><div class="plant-belt" aria-hidden="true"><div class="plant-rollers"></div><div class="plant-packet"><span class="packet-icon"><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg></span><span id="packet-label">Entrada</span></div></div></div><div class="plant-output"><span id="plant-event">Recebendo documentos</span><span id="plant-count">00 / 04 ETAPAS</span></div></div></section><section class="sales-section" id="solucoes"><div class="section-intro"><h2>Menos tarefas repetitivas.<br><strong>Mais tempo</strong> para o seu negócio.</h2><p class="lead">Desenvolvemos automações sob medida que conectam seus sistemas, organizam informações e executam rotinas administrativas com inteligência artificial.</p></div>
 <div class="service-grid">
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 7V5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16V7H5a2 2 0 0 1 0-4h12"/><path d="M21 11h-5a3 3 0 0 0 0 6h5m-5-3h.01"/></svg>Financeiro</h3><p>Organize documentos, acompanhe vencimentos, identifique divergências e prepare lembretes de cobrança.</p><div class="mini-visual"><div class="mini-row"><span>Contas a receber</span><b>Conferidas</b></div><div class="mini-row"><span>Vencimentos da semana</span><b>Organizados</b></div><div class="mini-row"><span>Lembretes</span><b>Para aprovação</b></div></div></article>
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9"/></svg>Relatórios e indicadores</h3><p>Reúna dados de planilhas e sistemas em relatórios recorrentes, sem copiar e colar informações todos os dias.</p><div class="mini-visual"><div class="mini-row"><span>Dados de vendas</span><b>Atualizados</b></div><div class="mini-row"><span>Resumo semanal</span><b>Gerado</b></div><div class="mini-row"><span>Indicadores</span><b>Disponíveis</b></div></div></article>
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16v12H9l-5 4zM8 8h8m-8 4h5"/></svg>Atendimento e comercial</h3><p>Classifique solicitações, organize leads, prepare respostas e acompanhe oportunidades que ficaram sem retorno.</p><div class="mini-visual"><div class="mini-row"><span>Solicitações recebidas</span><b>Classificadas</b></div><div class="mini-row"><span>Retornos comerciais</span><b>Preparados</b></div></div></article>
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="3" width="6" height="6" rx="1"/><rect x="15" y="15" width="6" height="6" rx="1"/><path d="M6 9v6a3 3 0 0 0 3 3h6m3-3V9a3 3 0 0 0-3-3h-6"/></svg>Rotinas internas</h3><p>Transfira dados entre sistemas, extraia informações de documentos e encaminhe pendências para as pessoas responsáveis.</p><div class="mini-visual"><div class="mini-row"><span>Documentos recebidos</span><b>Processados</b></div><div class="mini-row"><span>Cadastro no sistema</span><b>Verificado</b></div></div></article>
 </div></section>
-<section class="sales-section" id="processo"><p class="eyebrow">03 / Como funciona</p><h2>Da primeira conversa à rotina automatizada.</h2><p class="lead">Você não precisa trocar todos os seus sistemas. Começamos pelo processo que mais consome tempo da sua equipe.</p>
+<section class="sales-section" id="processo"><div class="section-intro"><h2>Da primeira conversa à <strong>rotina automatizada</strong>.</h2><p class="lead">Você não precisa trocar todos os seus sistemas. Começamos pelo processo que mais consome tempo da sua equipe.</p></div>
 <div class="steps"><article class="step"><p class="step-num">01.</p><h3>Diagnóstico</h3><p>Entendemos sua operação, as tarefas manuais e os sistemas envolvidos.</p></article><article class="step"><p class="step-num">02.</p><h3>Proposta</h3><p>Definimos o escopo, as integrações, as regras e os critérios de sucesso.</p></article><article class="step"><p class="step-num">03.</p><h3>Implantação</h3><p>Construímos e validamos a automação em etapas, com sua equipe.</p></article><article class="step"><p class="step-num">04.</p><h3>Evolução</h3><p>Acompanhamos os resultados e ajustamos os fluxos conforme a necessidade.</p></article></div>
 </section>
-<section class="sales-section"><p class="eyebrow">04 / Integrações e controle</p><h2>Trabalhe com as ferramentas que você já usa.</h2><p class="lead">As integrações são escolhidas conforme a viabilidade técnica e a necessidade de cada projeto.</p><div class="integration-belt" aria-label="Possíveis integrações"><div class="integration-track"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-mail</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Planilhas</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11.5a8 8 0 0 1-8 8 8 8 0 0 1-3.5-.8L4 20l1.3-4.5a8 8 0 1 1 14.7-4Z"/><path d="M9 8c-.6-.5-1.4.1-1.4 1.1 0 2.8 3.5 6.2 6.3 6.2.9 0 1.6-.6 1.2-1.3l-1.9-1.1-.9.9c-1.3-.6-2.4-1.7-3-3l.8-.9Z"/></svg>WhatsApp</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5-9 5-9-5 9-5Z M3 8v9l9 5 9-5V8M12 13v9"/></svg>ERP</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20v-3a6 6 0 0 1 12 0v3M17 5a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5v1"/></svg>CRM</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>APIs</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg>Documentos</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-mail</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Planilhas</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11.5a8 8 0 0 1-8 8 8 8 0 0 1-3.5-.8L4 20l1.3-4.5a8 8 0 1 1 14.7-4Z"/><path d="M9 8c-.6-.5-1.4.1-1.4 1.1 0 2.8 3.5 6.2 6.3 6.2.9 0 1.6-.6 1.2-1.3l-1.9-1.1-.9.9c-1.3-.6-2.4-1.7-3-3l.8-.9Z"/></svg>WhatsApp</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5-9 5-9-5 9-5Z M3 8v9l9 5 9-5V8M12 13v9"/></svg>ERP</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20v-3a6 6 0 0 1 12 0v3M17 5a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5v1"/></svg>CRM</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>APIs</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg>Documentos</span></div></div><div class="service-grid">
+<section class="sales-section integrations"><div class="section-intro"><h2>Trabalhe com as <strong>ferramentas que você já usa</strong>.</h2><p class="lead">As integrações são escolhidas conforme a viabilidade técnica e a necessidade de cada projeto.</p></div><div class="integration-belt" aria-label="Possíveis integrações"><div class="integration-track"><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-mail</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Planilhas</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11.5a8 8 0 0 1-8 8 8 8 0 0 1-3.5-.8L4 20l1.3-4.5a8 8 0 1 1 14.7-4Z"/><path d="M9 8c-.6-.5-1.4.1-1.4 1.1 0 2.8 3.5 6.2 6.3 6.2.9 0 1.6-.6 1.2-1.3l-1.9-1.1-.9.9c-1.3-.6-2.4-1.7-3-3l.8-.9Z"/></svg>WhatsApp</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5-9 5-9-5 9-5Z M3 8v9l9 5 9-5V8M12 13v9"/></svg>ERP</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20v-3a6 6 0 0 1 12 0v3M17 5a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5v1"/></svg>CRM</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>APIs</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg>Documentos</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-mail</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M4 9h16M4 15h16M10 9v12"/></svg>Planilhas</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M20 11.5a8 8 0 0 1-8 8 8 8 0 0 1-3.5-.8L4 20l1.3-4.5a8 8 0 1 1 14.7-4Z"/><path d="M9 8c-.6-.5-1.4.1-1.4 1.1 0 2.8 3.5 6.2 6.3 6.2.9 0 1.6-.6 1.2-1.3l-1.9-1.1-.9.9c-1.3-.6-2.4-1.7-3-3l.8-.9Z"/></svg>WhatsApp</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 9 5-9 5-9-5 9-5Z M3 8v9l9 5 9-5V8M12 13v9"/></svg>ERP</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9" cy="8" r="3"/><path d="M3 20v-3a6 6 0 0 1 12 0v3M17 5a3 3 0 0 1 0 6m1 3a5 5 0 0 1 3 5v1"/></svg>CRM</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>APIs</span><span><svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6"/></svg>Documentos</span></div></div><div class="service-grid">
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 6-6 6 6 6m8-12 6 6-6 6M14 4l-4 16"/></svg>Sistemas conectados</h3><p>Planilhas, e-mail, WhatsApp, ERP, CRM, APIs e documentos. Avaliamos como conectar cada fonte de informação.</p></article>
 <article class="service-card"><h3><svg class="ui-icon service-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/></svg>Você continua no controle</h3><p>Definimos permissões, registros de execução e etapas de revisão humana para ações sensíveis, de acordo com o projeto.</p></article>
-</div></section>
-<section class="sales-section"><p class="eyebrow">05 / Perguntas frequentes</p><h2>Antes de começar.</h2><div class="faq"><details><summary>Preciso substituir meu sistema atual?</summary><p>Não necessariamente. Primeiro avaliamos as ferramentas existentes, as integrações disponíveis e as restrições de acesso.</p></details><details><summary>Quanto custa uma automação?</summary><p>O investimento depende da complexidade, das integrações e do volume de trabalho. A proposta é definida após o diagnóstico.</p></details><details><summary>A inteligência artificial pode cometer erros?</summary><p>Sim. Por isso, o projeto pode combinar regras determinísticas, validações e aprovação humana para reduzir riscos.</p></details><details><summary>Como medimos o ganho de produtividade?</summary><p>Comparamos o tempo, o volume e a qualidade do processo antes e depois da implantação. A meta de dobrar a produtividade é uma aspiração, não uma garantia de resultado.</p></details><details><summary>Preciso ter conhecimento técnico?</summary><p>Não. O ponto de partida é explicar como sua equipe realiza o processo hoje e o que gostaria de melhorar.</p></details></div></section>
-<section class="sales-section" id="contato"><div class="contact-panel"><div><p class="eyebrow" style="color:#c7c2b8">06 / Vamos conversar</p><h2>Qual tarefa você gostaria de não precisar fazer amanhã?</h2><p class="lead">Conte um pouco sobre sua empresa e a rotina que deseja automatizar.</p></div><form id="diagnostic-form"><label for="company">Empresa</label><input id="company" name="company" placeholder="Nome da sua empresa" required><label for="routine">O que você gostaria de automatizar?</label><textarea id="routine" name="routine" placeholder="Ex.: gerar relatórios, conferir documentos..." required></textarea><button class="sales-btn" type="submit">Copiar pedido de diagnóstico</button><p class="contact-note" id="contact-note" role="status">O pedido será copiado para você compartilhar. O canal de contato ainda não está configurado.</p></form></div></section>
-<div class="sales-footer"><span>Flock · Automação administrativa</span><a href="publicacoes.html">Publicações</a></div>
+</div>
+<div class="review-demo" id="demonstracao">
+<div class="demo"><div class="demo-top"><b>Revisão pela equipe</b></div><div class="demo-window">
+<div class="demo-nav" role="tablist" aria-label="Exemplos de revisão" aria-orientation="vertical">
+<button class="demo-tab" type="button" role="tab" id="demo-tab-0" aria-selected="true" aria-controls="demo-panel" tabindex="0" data-demo="0"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="5" width="14" height="16" rx="2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 12h6m-6 4h6"/></svg><span>Assistente administrativo<small>Resumo diário</small></span></button>
+<button class="demo-tab" type="button" role="tab" id="demo-tab-1" aria-selected="false" aria-controls="demo-panel" tabindex="-1" data-demo="1"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M19 7V5H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16V7H5a2 2 0 0 1 0-4h12"/><path d="M21 11h-5a3 3 0 0 0 0 6h5m-5-3h.01"/></svg><span>Financeiro<small>Contas a receber</small></span></button>
+<button class="demo-tab" type="button" role="tab" id="demo-tab-2" aria-selected="false" aria-controls="demo-panel" tabindex="-1" data-demo="2"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 3v17h17M8 16v-5m5 5V6m5 10V9"/></svg><span>Relatórios<small>Indicadores</small></span></button>
+<button class="demo-tab" type="button" role="tab" id="demo-tab-3" aria-selected="false" aria-controls="demo-panel" tabindex="-1" data-demo="3"><svg class="ui-icon demo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 4h16v12H9l-5 4zM8 8h8m-8 4h5"/></svg><span>Atendimento<small>Triagem de solicitações</small></span></button>
+</div><div class="demo-main" id="demo-panel" role="tabpanel" aria-labelledby="demo-tab-0" tabindex="0"><h3 id="demo-title">Assistente administrativo</h3><p class="demo-status">Aguardando revisão</p><div class="demo-msg" id="demo-first">Bom dia! Organizei os e-mails recebidos, identifiquei três pendências e atualizei a planilha de acompanhamento.</div><div class="demo-msg user" id="demo-user">O que precisa da minha atenção?</div><div class="demo-msg" id="demo-last">Duas solicitações aguardam aprovação. Preparei as respostas para você revisar antes do envio.</div><p class="demo-meta">A equipe decide o que fazer a seguir.</p></div></div></div>
+</div>
+</section>
+<section class="sales-section"><div class="section-intro"><h2>Antes de começar.</h2></div><div class="faq"><details><summary>Preciso substituir meu sistema atual?</summary><p>Não necessariamente. Primeiro avaliamos as ferramentas existentes, as integrações disponíveis e as restrições de acesso.</p></details><details><summary>Quanto custa uma automação?</summary><p>O investimento depende da complexidade, das integrações e do volume de trabalho. A proposta é definida após o diagnóstico.</p></details><details><summary>A inteligência artificial pode cometer erros?</summary><p>Sim. Por isso, o projeto pode combinar regras determinísticas, validações e aprovação humana para reduzir riscos.</p></details><details><summary>Como medimos o ganho de produtividade?</summary><p>Comparamos o tempo, o volume e a qualidade do processo antes e depois da implantação.</p></details><details><summary>Preciso ter conhecimento técnico?</summary><p>Não. O ponto de partida é explicar como sua equipe realiza o processo hoje e o que gostaria de melhorar.</p></details></div></section>
+<section class="sales-section" id="contato">
+<div class="contact-panel">
+<div><h2>Qual tarefa você gostaria de <strong>não precisar fazer</strong> amanhã?</h2><p class="lead">Conte um pouco sobre sua empresa e a rotina que deseja automatizar.</p></div>
+<div class="contact-actions">
+<a class="sales-btn" href="https://wa.me/5547988520012">
+<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 11.5a8.5 8.5 0 0 1-12.3 7.6L4 20l.9-4.2a8.5 8.5 0 1 1 15.6-4.3Z"/><path d="M9 8.5c0 3 2 5 5 6l1.5-1.5-2-1-1 1a5 5 0 0 1-2.5-2.5l1-1-1-2Z"/></svg>WhatsApp</a>
+<a class="sales-btn secondary" href="mailto:andre.cordeiro.tech@gmail.com">
+<svg class="ui-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>E-mail</a>
+</div>
+</div>
+</section>
 </div>
 </main>
 <script>
@@ -329,22 +312,8 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (preference.matches || !('IntersectionObserver' in window)) return;
   const root = document.documentElement;
-  const items = document.querySelectorAll('footer');
-  document.querySelectorAll('.imprint p').forEach((item, i) => item.style.setProperty('--order', i));
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(({target, isIntersecting}) => {
-      if (!isIntersecting) return;
-      target.classList.add('is-visible');
-      observer.unobserve(target);
-    });
-  }, {threshold: 0.08});
-  items.forEach(item => observer.observe(item));
   root.classList.add('motion');
-  const revealAll = () => {
-    observer.disconnect();
-    items.forEach(item => item.classList.add('is-visible'));
-    root.classList.remove('motion');
-  };
+  const revealAll = () => root.classList.remove('motion');
   if (preference.addEventListener) preference.addEventListener('change', event => {if (event.matches) revealAll();});
   window.addEventListener('beforeprint', revealAll, {once:true});
   window.addEventListener('pageshow', event => {if (event.persisted) revealAll();});
@@ -408,8 +377,49 @@ pref.addEventListener?.('change',sync);document.addEventListener('visibilitychan
 ['Financeiro','Conferi os vencimentos e identifiquei quatro cobranças pendentes.','Prepare os lembretes.','Os quatro lembretes estão prontos para revisão. Nenhuma mensagem foi enviada.'],
 ['Relatórios','Reuni os dados de vendas e atualizei os indicadores da semana.','Mostre o que mudou.','Preparei um resumo das variações e destaquei os itens que merecem atenção.'],
 ['Atendimento','Classifiquei as solicitações recebidas por assunto e urgência.','Quais precisam da equipe?','Separei as solicitações que precisam de análise humana e preparei respostas para as demais.']];
-const tabs=[...document.querySelectorAll('.demo-tab')];tabs.forEach(tab=>tab.addEventListener('click',()=>{const d=examples[Number(tab.dataset.demo)];tabs.forEach(t=>t.setAttribute('aria-selected',String(t===tab)));['demo-title','demo-first','demo-user','demo-last'].forEach((id,i)=>document.getElementById(id).textContent=d[i]);}));
-document.getElementById('diagnostic-form').addEventListener('submit',async e=>{e.preventDefault();const f=new FormData(e.currentTarget),msg='Olá! Gostaria de conversar sobre automação administrativa.\nEmpresa: '+f.get('company')+'\nRotina: '+f.get('routine');try{await navigator.clipboard.writeText(msg);document.getElementById('contact-note').textContent='Pedido copiado. Nenhum dado foi enviado.';}catch{document.getElementById('contact-note').textContent='Não foi possível copiar automaticamente. Selecione e copie os campos acima.';}});
+const tablist = document.querySelector('.demo-nav');
+const tabs = [...tablist.querySelectorAll('[role="tab"]')];
+const panel = document.getElementById('demo-panel');
+const fields = ['demo-title', 'demo-first', 'demo-user', 'demo-last'].map(id => document.getElementById(id));
+
+function selectTab(tab) {
+  const example = examples[Number(tab.dataset.demo)];
+  tabs.forEach(item => {
+    const selected = item === tab;
+    item.tabIndex = selected ? 0 : -1;
+    item.setAttribute('aria-selected', String(selected));
+  });
+  panel.setAttribute('aria-labelledby', tab.id);
+  fields.forEach((field, index) => { field.textContent = example[index]; });
+}
+
+const compactTabs = matchMedia('(max-width: 600px)');
+function updateTabOrientation() {
+  tablist.setAttribute('aria-orientation', compactTabs.matches ? 'horizontal' : 'vertical');
+}
+updateTabOrientation();
+compactTabs.addEventListener('change', updateTabOrientation);
+
+tabs.forEach(tab => tab.addEventListener('click', () => selectTab(tab)));
+tablist.addEventListener('keydown', event => {
+  const index = tabs.indexOf(event.target);
+  if (index < 0) return;
+
+  const previousKey = compactTabs.matches ? 'ArrowLeft' : 'ArrowUp';
+  const nextKey = compactTabs.matches ? 'ArrowRight' : 'ArrowDown';
+  let nextIndex;
+  switch (event.key) {
+    case previousKey: nextIndex = (index - 1 + tabs.length) % tabs.length; break;
+    case nextKey: nextIndex = (index + 1) % tabs.length; break;
+    case 'Home': nextIndex = 0; break;
+    case 'End': nextIndex = tabs.length - 1; break;
+    default: return;
+  }
+
+  event.preventDefault();
+  selectTab(tabs[nextIndex]);
+  tabs[nextIndex].focus();
+});
 })();
 </script><script>
 (()=>{const cases=[["Financeiro","Faturas recebidas","Extrair valores","Conferir vencimentos","Preparar cobranças"],["Relatórios","Dados de vendas","Consolidar planilhas","Validar indicadores","Gerar relatório"],["Atendimento","Novas mensagens","Identificar assunto","Priorizar solicitações","Preparar respostas"],["Rotinas internas","Documentos recebidos","Extrair campos","Validar cadastro","Atualizar sistema"]],section=document.querySelector('.factory'),plant=section.querySelector('.plant'),stations=[...plant.querySelectorAll('.plant-station')],tabs=[...section.querySelectorAll('[data-case]')],belt=plant.querySelector('.plant-belt'),packet=plant.querySelector('.plant-packet'),icon=packet.querySelector('.packet-icon'),label=document.getElementById('packet-label'),event=document.getElementById('plant-event'),count=document.getElementById('plant-count'),lot=document.getElementById('plant-cycle'),pref=matchMedia('(prefers-reduced-motion: reduce)'),mobile=matchMedia('(max-width:600px)');
@@ -417,8 +427,8 @@ let selected=0,t=0,last=0,frame=0,paused=pref.matches,visible=true,previous=-1,p
 const duration=14;
 function measure(){const b=belt.getBoundingClientRect(),isMobile=mobile.matches,half=(isMobile?packet.offsetHeight:packet.offsetWidth)/2,max=(isMobile?belt.clientHeight:belt.clientWidth)-(half*2);positions=stations.map(s=>{const r=s.getBoundingClientRect();const center=isMobile?r.top+r.height/2-b.top:r.left+r.width/2-b.left;return Math.max(0,Math.min(max,center-half))});}
 function draw(){const time=t%duration,step=time>=12?4:Math.floor(time/3),local=step===4?(time-12)/2:(time%3)/3;
-if(previous!==step){previous=step;stations.forEach((s,i)=>{s.classList.toggle('active',i===step);s.querySelector('.plant-state').textContent=i<step?'Concluído':i===step?'Em execução':'Aguardando'});event.textContent=step===4?'Entrega preparada · conforme regras do processo':cases[selected][step+1];count.textContent=String(step).padStart(2,'0')+' / 04 CONCLUÍDAS';packet.classList.toggle('done',step===4);icon.innerHTML=["<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><path d=\"M4 9h16M4 15h16M10 9v12\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><circle cx=\"10\" cy=\"10\" r=\"5\"/><path d=\"m14 14 6 6\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 3h9l5 5v13H5zM14 3v6h5m-11 6 3 3 5-6\"/></svg>"][step];label.textContent=['Entrada','Dados','Conferência','Saída','Pronto'][step];measure();}
-const start=step===0?0:positions[step-1],end=step===4?Math.max(0,(mobile.matches?belt.clientHeight-packet.offsetHeight:belt.clientWidth-packet.offsetWidth)):positions[step];const p=step===4?local:Math.min(1,local/.35),e=p*p*(3-2*p),distance=start+(end-start)*e;packet.style.transform=mobile.matches?'translateY('+distance+'px)':'translateX('+distance+'px)';packet.style.opacity=step===4?String(Math.min(1,(1-local)*5)):String(step===0?Math.min(1,local*12):1);lot.textContent='LOTE '+String(Math.floor(t/duration)+1).padStart(2,'0')}
+if(previous!==step){previous=step;stations.forEach((s,i)=>{s.classList.toggle('active',i===step);s.querySelector('.plant-state').textContent=i<step?'Concluído':i===step?'Em execução':'Aguardando'});event.textContent=step===4?'Entrega preparada · conforme regras do processo':cases[selected][step+1];count.textContent=String(step).padStart(2,'0')+' / 04 concluídas';packet.classList.toggle('done',step===4);icon.innerHTML=["<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 3h9l5 5v13H5zM14 3v6h5M8 13h8m-8 4h6\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><rect x=\"4\" y=\"3\" width=\"16\" height=\"18\" rx=\"2\"/><path d=\"M4 9h16M4 15h16M10 9v12\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><circle cx=\"10\" cy=\"10\" r=\"5\"/><path d=\"m14 14 6 6\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M12 3v12m-4-4 4 4 4-4M4 16v5h16v-5\"/></svg>","<svg class=\"ui-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\" focusable=\"false\"><path d=\"M5 3h9l5 5v13H5zM14 3v6h5m-11 6 3 3 5-6\"/></svg>"][step];label.textContent=['Entrada','Dados','Conferência','Saída','Pronto'][step];measure();}
+const start=step===0?0:positions[step-1],end=step===4?Math.max(0,(mobile.matches?belt.clientHeight-packet.offsetHeight:belt.clientWidth-packet.offsetWidth)):positions[step];const p=step===4?local:Math.min(1,local/.35),e=p*p*(3-2*p),distance=start+(end-start)*e;packet.style.transform=mobile.matches?'translateY('+distance+'px)':'translateX('+distance+'px)';packet.style.opacity=step===4?String(Math.min(1,(1-local)*5)):String(step===0?Math.min(1,local*12):1);lot.textContent='Lote '+String(Math.floor(t/duration)+1).padStart(2,'0')}
 function tick(now){if(last)t+=Math.min(50,now-last)/1000;last=now;draw();frame=requestAnimationFrame(tick)}
 function sync(){cancelAnimationFrame(frame);last=0;section.classList.toggle('paused',paused||!visible||document.hidden);draw();if(!paused&&visible&&!document.hidden)frame=requestAnimationFrame(tick)}
 tabs.forEach((b,i)=>b.addEventListener('click',()=>{selected=i;t=0;previous=-1;tabs.forEach((tab,j)=>tab.setAttribute('aria-pressed',String(i===j)));stations.forEach((s,j)=>s.querySelector('.plant-task').textContent=cases[i][j+1]);sync()}));
