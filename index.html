@@ -83,9 +83,6 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
 .orbit-tile{position:absolute;left:50%;top:50%;width:clamp(25px,4.6vw,58px);aspect-ratio:1;transform:translate(-50%,-50%);background:#242220}
 .orbit-tile:nth-child(2n){background:#8e8b80}
 .orbit-tile:nth-child(3n){background:#bdb9ad}
-.motion-toggle{position:absolute;bottom:12px;right:0;z-index:3;background:transparent;color:var(--ink);border:0;font:inherit;font-size:12px;padding:8px;cursor:pointer;text-decoration:underline;text-underline-offset:.2em}
-.motion-toggle:focus-visible{outline:1px solid currentColor}
-.motion-toggle[hidden]{display:none}
 @media(prefers-reduced-motion:no-preference){
 .motion .cover h1{animation:none}
 .motion .cover h1 .letter{animation:letter-arrival 900ms var(--ease-editorial) both;animation-delay:calc(120ms + var(--i)*65ms)}
@@ -110,14 +107,13 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
 .orbit{z-index:auto}
 .cover h1{z-index:2}
 .orbit-tile{will-change:transform;z-index:1}
-.motion-toggle{z-index:5}
 @media(max-width:600px){.cover-pattern{opacity:.05}}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
 </head>
 <body><main class="page">
 <header class="masthead"><a href="./">André Cordeiro</a><span></span><nav><a href="publicacoes.html">Publicações</a></nav></header>
-<section class="cover" aria-label="Capa"><div class="cover-pattern" aria-hidden="true"><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div></div><div class="orbit" aria-hidden="true"><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span></div><h1 aria-label="Cordeiro"><span aria-hidden="true" class="letter" style="--i:0">C</span><span aria-hidden="true" class="letter" style="--i:1">O</span><span aria-hidden="true" class="letter" style="--i:2">R</span><span aria-hidden="true" class="letter" style="--i:3">D</span><span aria-hidden="true" class="letter" style="--i:4">E</span><span aria-hidden="true" class="letter" style="--i:5">I</span><span aria-hidden="true" class="letter" style="--i:6">R</span><span aria-hidden="true" class="letter" style="--i:7">O</span></h1><button class="motion-toggle" type="button" hidden>Pause motion</button></section>
+<section class="cover" aria-label="Capa"><div class="cover-pattern" aria-hidden="true"><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div><div class="pattern-row"><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span><span>CORDEIRO</span></div></div><div class="orbit" aria-hidden="true"><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span><span class="orbit-tile"></span></div><h1 aria-label="Cordeiro"><span aria-hidden="true" class="letter" style="--i:0">C</span><span aria-hidden="true" class="letter" style="--i:1">O</span><span aria-hidden="true" class="letter" style="--i:2">R</span><span aria-hidden="true" class="letter" style="--i:3">D</span><span aria-hidden="true" class="letter" style="--i:4">E</span><span aria-hidden="true" class="letter" style="--i:5">I</span><span aria-hidden="true" class="letter" style="--i:6">R</span><span aria-hidden="true" class="letter" style="--i:7">O</span></h1></section>
 
 
 </main>
@@ -149,7 +145,7 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
 </script>
 <script>
 (()=>{
- const cover=document.querySelector('.cover'), title=cover.querySelector('h1'), tiles=[...cover.querySelectorAll('.orbit-tile')], toggle=cover.querySelector('.motion-toggle'), root=document.documentElement;
+ const cover=document.querySelector('.cover'), title=cover.querySelector('h1'), tiles=[...cover.querySelectorAll('.orbit-tile')], root=document.documentElement;
  const pref=matchMedia('(prefers-reduced-motion: reduce)');
  let paused=false, elapsed=0, last=0, frame=0;
  const draw=()=>{
@@ -167,8 +163,7 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
  });
  };
  const tick=(now)=>{frame=0;if(paused||pref.matches||document.hidden){last=0;return;}if(last)elapsed+=Math.min(50,now-last);last=now;draw();frame=requestAnimationFrame(tick);};
- const sync=()=>{cancelAnimationFrame(frame);frame=0;last=0;draw();root.classList.toggle('motion-paused',paused||pref.matches);toggle.hidden=pref.matches;toggle.textContent=paused?'Retomar movimento':'Pausar movimento';if(!paused&&!pref.matches&&!document.hidden)frame=requestAnimationFrame(tick);};
- toggle.addEventListener('click',()=>{paused=!paused;sync();});
+ const sync=()=>{cancelAnimationFrame(frame);frame=0;last=0;draw();root.classList.toggle('motion-paused',paused||pref.matches);if(!paused&&!pref.matches&&!document.hidden)frame=requestAnimationFrame(tick);};
  window.addEventListener('resize',draw,{passive:true});document.addEventListener('visibilitychange',sync);pref.addEventListener?.('change',sync);
  if(document.fonts)document.fonts.ready.then(draw);
  window.addEventListener('beforeprint',()=>{paused=true;sync();});
