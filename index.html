@@ -119,6 +119,9 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
 .cover .orbit-tile{background:transparent!important;width:clamp(48px,8vw,100px)}
 .orbit-tile svg{display:block;width:100%;height:100%;overflow:visible}
 @media(max-width:600px){.cover .orbit-tile{width:clamp(40px,13vw,58px)}}
+
+/* Keep the subtitle clear of the orbit at every viewport size. */
+.cover-caption{top:calc(50% + var(--caption-offset,clamp(90px,14vw,170px)))}
 </style>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@900&display=swap">
 </head>
@@ -163,6 +166,9 @@ header, header a, header nav, header span { font-family: Portrait, Georgia, 'Tim
  const w=cover.clientWidth,h=cover.clientHeight,s=tiles[0].offsetWidth;
  const rx=Math.max(0,Math.min(w/2-s*.95,title.offsetWidth*.61+s*.4));
  const ry=Math.max(0,Math.min(h*.28,title.offsetHeight*.40+s*.16));
+ // Reserve space below the complete orbital envelope, including the largest foreground mascot.
+ const orbitBottom=Math.hypot(ry,rx*.10)+s*.58;
+ cover.style.setProperty('--caption-offset',Math.ceil(Math.max(orbitBottom+14,title.offsetHeight/2+18))+'px');
  tiles.forEach((tile,i)=>{
  const a=elapsed*.00022+i*Math.PI*2/tiles.length-.6;
  const depth=Math.sin(a), side=Math.cos(a);
