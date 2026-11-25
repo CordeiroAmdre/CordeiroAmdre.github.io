@@ -9,6 +9,7 @@
 /* Hallmark · shape: Portfolio Index · genre: editorial · hero: original centered cover
  * Layout adapted from Studio. Palette and typography restored from the original Flock landing. */
 :root {
+  --ease-editorial: cubic-bezier(.22,.61,.36,1);
   --paper: #eeece6;
   --proof-paper: #e6e3db;
   --proof-paper-deep: #dce4d9;
@@ -53,7 +54,6 @@ h3 { font: 400 1.375rem/1.18 var(--font-display); }
 .hero {
   width: min(100%, calc(100vw - 64px), 1040px);
   margin-inline: auto;
-  --ease-editorial: cubic-bezier(.22,.61,.36,1);
 }
 .cover {
   position: relative;
@@ -240,6 +240,47 @@ h3 { font: 400 1.375rem/1.18 var(--font-display); }
   .demo-main { padding: 16px; }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .motion .masthead, .motion .section-rule {
+    position: relative;
+    border-color: transparent;
+  }
+  .motion .masthead::after, .motion .section-rule::before {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    height: 1px;
+    background: var(--rule);
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  .motion .masthead::after {
+    bottom: -1px;
+    animation: ink-rule 850ms var(--ease-editorial) forwards;
+  }
+  .motion .section-rule::before { top: -1px; }
+  .motion .section-rule.is-visible::before,
+  .motion .section-rule:focus-within::before {
+    animation: ink-rule 850ms var(--ease-editorial) forwards;
+  }
+  .masthead a { position: relative; }
+  .masthead a::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(50% - .65em);
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 400ms var(--ease-editorial);
+  }
+  .masthead nav a:hover, .masthead nav a:focus-visible { text-decoration: none; }
+  .masthead a:hover::after, .masthead a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  @keyframes ink-rule { to { transform: scaleX(1); } }
   .motion .cover h1 .letter { animation: letter-arrival 900ms var(--ease-editorial) both; animation-delay: calc(120ms + var(--i) * 65ms); }
   .motion .pattern-row { animation: pattern-drift 44s linear infinite alternate; }
   .motion .pattern-row:nth-child(even) { animation-duration: 53s; animation-direction: alternate-reverse; }
@@ -312,8 +353,23 @@ h3 { font: 400 1.375rem/1.18 var(--font-display); }
   const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (preference.matches || !('IntersectionObserver' in window)) return;
   const root = document.documentElement;
+  const sections = document.querySelectorAll('.factory, .sales-section:not(#contato)');
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  });
+  sections.forEach(section => {
+    section.classList.add('section-rule');
+    observer.observe(section);
+  });
   root.classList.add('motion');
-  const revealAll = () => root.classList.remove('motion');
+  const revealAll = () => {
+    observer.disconnect();
+    root.classList.remove('motion');
+  };
   if (preference.addEventListener) preference.addEventListener('change', event => {if (event.matches) revealAll();});
   window.addEventListener('beforeprint', revealAll, {once:true});
   window.addEventListener('pageshow', event => {if (event.persisted) revealAll();});
