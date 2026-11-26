@@ -1,0 +1,75 @@
+:root {
+  --site-width: min(calc(100% - 64px), 1040px);
+  --font-logo: 'Barlow Condensed', Impact, 'Arial Narrow', sans-serif;
+}
+html { scrollbar-gutter: stable; }
+@media (max-width: 600px) {
+  :root { --site-width: calc(100% - 36px); }
+}
+.masthead {
+  position: relative;
+  width: var(--site-width);
+  margin-inline: auto;
+  border-bottom: 1px solid var(--rule);
+  font: 400 .9375rem/1.4 Georgia, serif;
+}
+.masthead nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+}
+.masthead a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: .2em;
+}
+.masthead .brand-mark { font: 900 1.625rem/1 var(--font-logo); }
+.masthead a:hover, .masthead a:focus-visible { text-decoration: underline; }
+.masthead a:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+@media (prefers-reduced-motion: no-preference) {
+  .masthead { border-bottom-color: transparent; }
+  .masthead::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 -1px;
+    height: 1px;
+    background: var(--rule);
+    pointer-events: none;
+    transform-origin: left;
+    animation: masthead-rule 850ms var(--ease-editorial) both;
+  }
+  .masthead nav {
+    animation: masthead-in 650ms var(--ease-editorial) both;
+  }
+  .masthead a { position: relative; }
+  .masthead a::after {
+    content: "";
+    position: absolute;
+    inset-inline: 0;
+    bottom: calc(50% - .65em);
+    height: 1px;
+    background: currentColor;
+    pointer-events: none;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 400ms var(--ease-editorial);
+  }
+  .masthead a:hover, .masthead a:focus-visible { text-decoration: none; }
+  .masthead a:hover::after, .masthead a:focus-visible::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  @keyframes masthead-in {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes masthead-rule {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+  }
+}
