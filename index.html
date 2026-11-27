@@ -43,11 +43,12 @@ h1, p { margin: 0; }
   flex-direction: column;
   justify-content: center;
   gap: .12em;
-  opacity: .055;
+  /* Keep the pattern faint even if the browser composites the mask separately. */
+  color: color-mix(in srgb, var(--ink) 5.5%, var(--paper));
   pointer-events: none;
   font: 900 clamp(70px, 13vw, 180px)/.88 var(--font-logo);
   letter-spacing: -.025em;
-  mask-image: radial-gradient(ellipse 48% 47% at center, var(--ink) 24%, color-mix(in srgb, var(--ink) 85%, transparent) 43%, color-mix(in srgb, var(--ink) 42%, transparent) 65%, color-mix(in srgb, var(--ink) 9%, transparent) 85%, transparent 100%);
+  mask-image: radial-gradient(ellipse 48% 47% at center, #000 24%, rgb(0 0 0 / 85%) 43%, rgb(0 0 0 / 42%) 65%, rgb(0 0 0 / 9%) 85%, transparent 100%);
 }
 .pattern-row { display: flex; width: max-content; white-space: nowrap; gap: .24em; transform: translateX(-12%); }
 .pattern-row:nth-child(even) { transform: translateX(-32%); }
@@ -87,7 +88,10 @@ h1, p { margin: 0; }
 }
 @media (max-width: 600px) {
   .cover h1 { font-size: clamp(38px, 15vw, 100px); }
-  .cover-pattern { font-size: clamp(65px, 20vw, 100px); opacity: .05; }
+  .cover-pattern {
+    font-size: clamp(65px, 20vw, 100px);
+    color: color-mix(in srgb, var(--ink) 5%, var(--paper));
+  }
   .orbit-tile { width: clamp(40px, 13vw, 58px); }
 }
 @media (prefers-reduced-motion: no-preference) {
